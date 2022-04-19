@@ -1,0 +1,29 @@
+.issuenote{
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex-basis: 2rem;
+  flex-grow: 0;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-basis: 100px;
+}

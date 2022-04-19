@@ -1,0 +1,9 @@
+{
+  "name": "googleauth",
+  "description": "Manage google auth library",
+  "version": "1.0.0",
+  "dependencies": [],
+  "defaultconfig": {
+    "GoogleClientId": ""
+  }
+}

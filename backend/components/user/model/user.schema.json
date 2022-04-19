@@ -1,0 +1,21 @@
+{
+  "entities" : [
+      {
+          "name" : "user",
+          "fields": [
+              { "name" : "uid", "type" : "string" },
+              { "name" : "name", "type" : "string" },
+              { "name" : "email", "type" : "string" },
+              { "name" : "initiid", "type" : "string" },
+              { "name" : "sub", "type": "string"},
+              { "name" : "fullname", "type": "string"},
+              { "name" : "pictureurl", "type": "string"},
+              { "name" : "created", "type" : "datetime"}
+          ],
+          "indexes": [ ["uid"], ["email"] ],
+          "restrictions": {
+              "unique": [["uid"], ["email"]]
+          }
+      }
+  ]
+}

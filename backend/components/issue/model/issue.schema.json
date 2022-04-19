@@ -1,0 +1,20 @@
+{
+    "entities" : [
+        {
+            "name" : "issue",
+            "fields": [
+                { "name" : "iid", "type" : "string" },
+                { "name" : "title", "type" : "string" },
+                { "name" : "description", "type" : "longtext" },
+                { "name" : "fatherid", "type" : "string" },
+                { "name" : "childs", "type" : "json" },
+                { "name" : "services", "type" : "json" },
+                { "name" : "created", "type" : "datetime"}
+            ],
+            "indexes": [ ["iid"], ["fatherid"] ],
+            "restrictions": {
+                "unique": [["iid"]]
+            }
+        }
+    ]
+}

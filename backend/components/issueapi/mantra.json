@@ -1,0 +1,7 @@
+{
+    "name": "issueapi",
+    "description": "Acces point to issue entities",
+    "version": "1.0.0",
+    "dependencies": [],
+    "defaultconfig": {}
+}

@@ -1,0 +1,14 @@
+{
+    "entities" : [
+        {
+            "name" : "issueuser",
+            "fields": [
+                { "name" : "uid", "type" : "string" },
+                { "name" : "iid", "type" : "string" },
+                { "name" : "owner", "type" : "boolean", "default": false },
+                { "name" : "created", "type" : "datetime"}
+            ],
+            "indexes": [ ["uid"], ["uid", "owner"], ["iid"] ]
+        }
+    ]
+}

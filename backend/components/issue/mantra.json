@@ -1,0 +1,7 @@
+{
+    "name": "issue",
+    "description": "Manage issues",
+    "version": "1.0.0",
+    "dependencies": [],
+    "defaultconfig": {}
+}
