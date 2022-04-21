@@ -17,18 +17,18 @@ module.exports = {
 
     return ret;
   },
-  updateInitIssueByUid: async (Mantra, params) => {
+  updateRootIssueByUid: async (Mantra, params) => {
     const db = Mantra.ComponentEntities('user').user;
 
-    const ret = await db.U().W('uid=?', params.uid).V({ initiid: params.iid }).R();
+    const ret = await db.U().W('uid=?', params.uid).V({ rootiid: params.iid }).R();
 
     return ret;
   },
-  retrieveInitIssueByUid: async (Mantra, params) => {
+  retrieveRootIssueByUid: async (Mantra, params) => {
     const db = Mantra.ComponentEntities('user').user;
 
     const user = await db.S().W('uid=?', params).R();
 
-    return user.initiid;
+    return user.rootiid;
   },
 };

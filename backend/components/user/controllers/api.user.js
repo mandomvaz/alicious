@@ -1,13 +1,13 @@
 module.exports = {
-  retrieveInitIid: async (Mantra, params) => {
-    const iid = await Mantra.dal.user.retrieveInitIssueByUid(Mantra, params);
+  retrieveRootIid: async (Mantra, params) => {
+    const iid = await Mantra.dal.user.retrieveRootIssueByUid(Mantra, params);
 
     return iid;
   },
-  updateInitIid: async (Mantra, params) => {
-    const initiid = { iid: params.iid, uid: params.uid };
+  updateRootIid: async (Mantra, params) => {
+    const rootiid = { iid: params.iid, uid: params.uid };
 
-    const ret = await Mantra.dal.user.updateInitIid(Mantra, initiid);
+    const ret = await Mantra.dal.user.updateRootIid(Mantra, rootiid);
 
     return ret;
   },

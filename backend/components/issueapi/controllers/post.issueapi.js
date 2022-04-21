@@ -10,12 +10,12 @@ module.exports = {
 
     Mantra.SendSuccess(poulatedIssue);
   },
-  getinitissue: async (req, res) => {
+  getrootissue: async (req, res) => {
     const Mantra = res.MantraAPI;
-    const { uid } = req.MantraPostData;
+    const { uid } = res.User;
 
-    const initiid = await Mantra.Invoke('user.retrieveInitIid', { uid });
-    const issue = await Mantra.Invoke('issue.retrieveIssue', initiid);
+    const rootiid = await Mantra.Invoke('user.retrieveRootIid', { uid });
+    const issue = await Mantra.Invoke('issue.retrieveIssue', rootiid);
     const poulatedIssue = await populateIssue(issue);
 
     Mantra.SendSuccess(poulatedIssue);
@@ -26,13 +26,14 @@ module.exports = {
     const issue = {
       title: req.MantraPostData.title,
       description: req.MantraPostData.description,
-      uid: req.MantraPostData.uid,
+      uid: res.User.uid,
       fatherid: '0',
       childs: [],
       services: [],
     };
 
     const issueid = await Mantra.Invoke('issue.addIssue', issue);
+    Mantra.EmitEvent('issue.added', { iid: issueid, uid: res.User.uid });
 
     Mantra.SendSuccess(issueid);
   },

@@ -6,13 +6,14 @@ async function addUser(Mantra, userinfo) {
     {
       name: userinfo.given_name,
       email: userinfo.email,
-      initiid: '',
+      rootiid: '',
       sub: userinfo.sub,
       fullname: userinfo.name,
       pictureurl: userinfo.picture,
     },
   );
   Mantra.EmitEvent('user.added', { userAdded: user });
+  return user;
 }
 
 function generateToken(Mantra, user) {
@@ -27,7 +28,15 @@ function generateToken(Mantra, user) {
   return token;
 }
 
+function extractToken(Mantra, token) {
+  const tokensecret = Mantra.Config('user.TokenSecret');
+  const payload = jwt.verify(token, tokensecret);
+
+  return payload;
+}
+
 module.exports = {
   addUser,
   generateToken,
+  extractToken,
 };
