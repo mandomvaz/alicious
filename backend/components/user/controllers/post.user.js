@@ -17,12 +17,12 @@ module.exports = {
       let user;
 
       if (users.length === 0) {
-        user = UserLib.addUser(tokenpayload.payload);
+        user = await UserLib.addUser(Mantra, tokenpayload.payload);
       } else {
         [user] = users;
       }
-
-      Mantra.SendSuccess(user);
+      const token = UserLib.generateToken(Mantra, user);
+      Mantra.SendSuccess({ user, token });
     } else {
       Mantra.SendError('error');
     }

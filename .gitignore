@@ -1,5 +1,6 @@
 .vscode
 backend/mantrad
+backend/mantraconfig.*.json
 
 # Logs
 logs

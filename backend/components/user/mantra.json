@@ -3,5 +3,7 @@
   "description": "Manage users",
   "version": "1.0.0",
   "dependencies": [],
-  "defaultconfig": {}
+  "defaultconfig": {
+    "TokenSecret":""
+  }
 }
