@@ -8,7 +8,7 @@ async function fetchIssues(dispatch, getState) {
 }
 
 function addIssue(issue) {
-  return async function addIssueThunk(dispatch, getState) {
+  return async (dispatch, getState) => {
     await IssueRepo.addIssue({ ...issue, iid: nanoid() });
     dispatch(issueAdded(issue));
   };

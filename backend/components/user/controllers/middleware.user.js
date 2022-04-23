@@ -5,13 +5,16 @@ module.exports = {
     const Mantra = res.MantraAPI;
 
     try {
-      const token = '';
-      const userinfo = UserLib.extractToken(Mantra, token);
-      res.User = {
-        uid: userinfo.uid,
-        email: userinfo.email,
-      };
-      next();
+      if (req.url !== '/user/login') {
+        const token = '';
+        const userinfo = UserLib.extractToken(Mantra, token);
+        res.User = {
+          uid: userinfo.uid,
+          email: userinfo.email,
+        };
+      } else {
+        next();
+      }
     } catch (error) {
       Mantra.LogError(error);
       Mantra.SendError('Forbidden');

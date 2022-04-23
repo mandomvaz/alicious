@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
 function Menu({ className }) {
-  const user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.user);
 
   return (
     <aside className={className}>
@@ -12,6 +12,7 @@ function Menu({ className }) {
         <h1 className={styles.title}>Alicious</h1>
         <h1 className={styles.title}>
           User ID:
+          {' '}
           {user.uid}
         </h1>
       </div>

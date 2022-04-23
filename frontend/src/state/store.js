@@ -4,12 +4,14 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import issueReducer from './issuesSlice';
-import userReducer from './usersSlice';
+import userReducer from './userSlice';
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     issues: issueReducer,
-    users: userReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk).concat(logger),
 });
+
+export default store;
