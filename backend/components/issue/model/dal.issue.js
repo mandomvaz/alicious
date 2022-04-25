@@ -4,7 +4,7 @@ module.exports = {
   retrieveByIid: async (Mantra, iid) => {
     const db = Mantra.ComponentEntities('issue').issue;
 
-    return db.S().W('iid=?', iid).R();
+    return db.S().W('iid=?', iid).Single();
   },
   add: async (Mantra, issue) => {
     const db = Mantra.ComponentEntities('issue').issue;
