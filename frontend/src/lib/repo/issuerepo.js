@@ -11,14 +11,13 @@ async function retrieveRootIssue() {
 }
 
 async function addIssue(issue) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const actualIssuesSTR = localStorage.getItem('ISSUES');
-      const actualIssues = (actualIssuesSTR === null) ? [] : JSON.parse(actualIssuesSTR);
-      localStorage.setItem('ISSUES', JSON.stringify([...actualIssues, issue]));
-      resolve();
-    }, 1000);
-  });
+  const response = await APIClient.post('/issue/add', issue);
+
+  if (response.data.success) {
+    return response.data.payload;
+  }
+
+  throw new Error('Error');
 }
 
 const Repo = {

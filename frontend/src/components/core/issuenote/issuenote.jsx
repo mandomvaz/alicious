@@ -9,7 +9,7 @@ function IssueNote({ issue }) {
         <h3>{issue.title}</h3>
       </div>
       <div className={styles.body}>
-        <p>{issue.desc}</p>
+        <p>{issue.description}</p>
       </div>
     </div>
   );
@@ -20,6 +20,6 @@ export default IssueNote;
 IssueNote.propTypes = {
   issue: PropTypes.shape({
     title: PropTypes.string,
-    desc: PropTypes.string,
+    description: PropTypes.string,
   }).isRequired,
 };

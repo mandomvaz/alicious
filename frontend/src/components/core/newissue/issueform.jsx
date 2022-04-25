@@ -7,18 +7,17 @@ import styles from './styles.module.css';
 
 function IssueForm({ callback, ...options }) {
   const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [description, setDescription] = useState('');
   const [iid, setIId] = useState('');
 
   if (options.issue !== undefined) {
     setTitle(options.issue.title);
-    setDesc(options.issue.desc);
+    setDescription(options.issue.description);
     setIId(options.issue.iid);
   }
 
   const handleSubmit = () => {
-    debugger;
-    callback({ title, desc, iid });
+    callback({ title, description, iid });
   };
 
   return (
@@ -41,7 +40,7 @@ function IssueForm({ callback, ...options }) {
           <div className={styles.formgroup}>
             <label htmlFor="desc">
               Descripción
-              <textarea name="desc" cols="30" rows="10" onChange={(e) => setDesc(e.target.value)} value={desc} />
+              <textarea name="desc" cols="30" rows="10" onChange={(e) => setDescription(e.target.value)} value={description} />
             </label>
           </div>
           <div className={styles.formgroup}>

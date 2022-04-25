@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import IssueForm from './issueform';
@@ -17,7 +16,3 @@ function NewIssue() {
 }
 
 export default NewIssue;
-
-NewIssue.propTypes = {
-  addIssue: PropTypes.func.isRequired,
-};

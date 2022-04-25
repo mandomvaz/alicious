@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
@@ -7,33 +6,37 @@ import NewIssue from '../newissue/newissue';
 import Button from '../../lib/button/button';
 import IssueNote from '../issuenote/issuenote';
 
-// import IssueRepo from '../../../lib/repo/issuerepo';
+import { openIssueForm, closeIssueForm } from '../../../state/uiSlice';
+
 import styles from './styles.module.css';
 
 function MainView({ className }) {
-  const [newIssue, setnewIssue] = useState(false);
-  const currentissue = useSelector((state) => state.issues.currentissue);
+  // const currentissue = useSelector((state) => state.issues.currentissue);
+  const dispatch = useDispatch();
+
+  const issueslist = useSelector((state) => state.issues.currentissue.childs);
   const loading = useSelector((state) => state.ui.loadingIssues);
+  const showissueform = useSelector((state) => state.ui.showIssueForm);
 
   const handleNewIssueButton = () => {
-    setnewIssue(true);
+    dispatch(openIssueForm());
   };
 
   const handleDisableButton = () => {
-    setnewIssue(false);
+    dispatch(closeIssueForm());
   };
 
   return (
     <div className={className}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          { (newIssue) ? <Button handler={handleDisableButton} text="Disabled" /> : <Button handler={handleNewIssueButton} text="Nuevo Issue" />}
+          { (showissueform) ? <Button handler={handleDisableButton} text="Disabled" /> : <Button handler={handleNewIssueButton} text="Nuevo Issue" />}
           <h2 className={styles.title}>MainView</h2>
         </div>
         <div className={styles.mainviewbody}>
-          { (newIssue) && <NewIssue />}
+          { (showissueform) && <NewIssue />}
           <div className={styles.issueslist}>
-            { (!loading) && currentissue.childs.map((b) => (<IssueNote issue={b} key={b.iid} />))}
+            { (!loading) && issueslist.map((b) => (<IssueNote issue={b} key={b.iid} />))}
           </div>
         </div>
       </div>

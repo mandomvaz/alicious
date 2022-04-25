@@ -9,10 +9,10 @@ const issueSlice = createSlice({
   initialState,
   reducers: {
     issueAdded(state, action) {
-      return {
-        ...state,
-        childs: [...state.childs, action.payload],
-      };
+      debugger;
+      const newstate = state;
+      newstate.currentissue.childs = [...newstate.currentissue.childs, action.payload];
+      return newstate;
     },
     issuesLoaded(state, action) {
       return { currentissue: action.payload };

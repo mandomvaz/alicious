@@ -12,8 +12,13 @@ async function fetchIssues(dispatch, getState) {
 
 function addIssue(issue) {
   return async (dispatch, getState) => {
-    await IssueRepo.addIssue({ ...issue });
-    dispatch(issueAdded(issue));
+    debugger;
+    const fatheriid = getState().issues.currentissue.iid;
+    const newissue = {
+      ...issue,
+      iid: await IssueRepo.addIssue({ ...issue, fatheriid }),
+    };
+    dispatch(issueAdded(newissue));
   };
 }
 
