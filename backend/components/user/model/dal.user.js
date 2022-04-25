@@ -27,7 +27,7 @@ module.exports = {
   retrieveRootIssueByUid: async (Mantra, params) => {
     const db = Mantra.ComponentEntities('user').user;
 
-    const user = await db.S().W('uid=?', params).R();
+    const user = await db.S().W('uid=?', params.uid).Single();
 
     return user.rootiid;
   },
