@@ -23,6 +23,9 @@ module.exports = {
   updateByIid: async (Mantra, issue) => {
     const db = Mantra.ComponentEntities('issue').issue;
 
-    return db.U().W('iid=?', issue.iid).V(issue).R();
+    const cleanissue = { ...issue };
+    delete cleanissue.ID;
+
+    return db.U().W('iid=?', cleanissue.iid).V(cleanissue).R();
   },
 };

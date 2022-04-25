@@ -6,12 +6,12 @@
                 { "name" : "iid", "type" : "string" },
                 { "name" : "title", "type" : "string" },
                 { "name" : "description", "type" : "longtext" },
-                { "name" : "fatherid", "type" : "string" },
+                { "name" : "fatheriid", "type" : "string" },
                 { "name" : "childs", "type" : "json" },
                 { "name" : "services", "type" : "json" },
                 { "name" : "created", "type" : "datetime"}
             ],
-            "indexes": [ ["iid"], ["fatherid"] ],
+            "indexes": [ ["iid"], ["fatheriid"] ],
             "restrictions": {
                 "unique": [["iid"]]
             }

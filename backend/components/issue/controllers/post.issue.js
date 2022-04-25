@@ -27,13 +27,20 @@ module.exports = {
       title: req.MantraPostData.title,
       description: req.MantraPostData.description,
       uid: res.User.uid,
-      fatherid: req.MantraPostData.fatherid,
+      fatheriid: req.MantraPostData.fatheriid,
       childs: [],
       services: [],
     };
 
     const iid = await Mantra.dal.issue.add(Mantra, issue);
-    Mantra.EmitEvent('issue.added', { iid, uid: res.User.uid });
+    const fatherissue = await Mantra.dal.issue.retrieveByIid(Mantra, req.MantraPostData.fatheriid);
+
+    await Mantra.dal.issue.updateByIid(
+      Mantra,
+      { ...fatherissue, childs: [...fatherissue.childs, iid] },
+    );
+
+    Mantra.EmitEvent('issue.added', { iid, uid: res.User.uid, fatheriid: req.MantraPostData.fatheriid });
 
     Mantra.SendSuccess(iid);
   },

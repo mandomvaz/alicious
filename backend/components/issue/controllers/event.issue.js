@@ -9,7 +9,7 @@ module.exports = {
       {
         title: 'Root Issue',
         description: 'Root Issue',
-        fatherid: 'root',
+        fatheriid: 'root',
         childs: [],
         services: [],
       },
