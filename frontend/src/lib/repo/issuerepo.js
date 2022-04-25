@@ -1,10 +1,13 @@
-function retrieveIssues() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const actualIssuesSTR = localStorage.getItem('ISSUES');
-      resolve((actualIssuesSTR === null) ? [] : JSON.parse(actualIssuesSTR));
-    }, 1000);
-  });
+import APIClient from '../helpers/apiclient';
+
+async function retrieveRootIssue() {
+  const response = await APIClient.post('/issue/getrootissue');
+
+  if (response.data.success) {
+    return response.data.payload;
+  }
+
+  throw new Error('Error');
 }
 
 async function addIssue(issue) {
@@ -19,7 +22,7 @@ async function addIssue(issue) {
 }
 
 const Repo = {
-  retrieveIssues,
+  retrieveRootIssue,
   addIssue,
 };
 

@@ -1,22 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+const initialState = {
+  currentissue: {},
+};
 
 const issueSlice = createSlice({
   name: 'issues',
   initialState,
   reducers: {
     issueAdded(state, action) {
-      const newissue = {
-        ...action.payload,
-      };
-      return [
+      return {
         ...state,
-        newissue,
-      ];
+        childs: [...state.childs, action.payload],
+      };
     },
     issuesLoaded(state, action) {
-      return [...action.payload];
+      return { currentissue: action.payload };
     },
   },
 });

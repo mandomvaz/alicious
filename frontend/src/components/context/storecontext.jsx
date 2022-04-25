@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import store from '../../state/store';
 import IssueThunks from '../../state/issueThunks';
 import UserThunks from '../../state/userThunks';
+import { loadingIssues } from '../../state/uiSlice';
 
 function initialstate(dispatch, getState) {
+  dispatch(loadingIssues());
   return dispatch(UserThunks.loginUser).then(() => dispatch(IssueThunks.fetchIssues));
 }
 

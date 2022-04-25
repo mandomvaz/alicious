@@ -1,15 +1,18 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { issueAdded, issuesLoaded } from './issuesSlice';
+import { loadedIssues, loadingIssues } from './uiSlice';
+
 import IssueRepo from '../lib/repo/issuerepo';
 
 async function fetchIssues(dispatch, getState) {
-  const issues = await IssueRepo.retrieveIssues();
+  dispatch(loadingIssues());
+  const issues = await IssueRepo.retrieveRootIssue();
   dispatch(issuesLoaded(issues));
+  dispatch(loadedIssues());
 }
 
 function addIssue(issue) {
   return async (dispatch, getState) => {
-    await IssueRepo.addIssue({ ...issue, iid: nanoid() });
+    await IssueRepo.addIssue({ ...issue });
     dispatch(issueAdded(issue));
   };
 }

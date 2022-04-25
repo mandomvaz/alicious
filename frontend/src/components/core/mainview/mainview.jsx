@@ -12,7 +12,8 @@ import styles from './styles.module.css';
 
 function MainView({ className }) {
   const [newIssue, setnewIssue] = useState(false);
-  const issues = useSelector((state) => state.issues);
+  const currentissue = useSelector((state) => state.issues.currentissue);
+  const loading = useSelector((state) => state.ui.loadingIssues);
 
   const handleNewIssueButton = () => {
     setnewIssue(true);
@@ -32,7 +33,7 @@ function MainView({ className }) {
         <div className={styles.mainviewbody}>
           { (newIssue) && <NewIssue />}
           <div className={styles.issueslist}>
-            { issues.map((b) => (<IssueNote issue={b} key={b.iid} />))}
+            { (!loading) && currentissue.childs.map((b) => (<IssueNote issue={b} key={b.iid} />))}
           </div>
         </div>
       </div>
