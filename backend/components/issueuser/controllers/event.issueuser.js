@@ -13,7 +13,16 @@ const issueaddedfunc = async (eventData) => {
   );
 };
 
+const issuedeleted = async (eventData) => {
+  const Mantra = eventData.MantraAPI;
+
+  Mantra.LogInfo('IssueUser Component issue deleted detected');
+
+  Mantra.dal.issueuser.deleteByIid(Mantra, eventData.iid);
+};
+
 module.exports = {
   issue_added: issueaddedfunc,
   issue_rootadded: issueaddedfunc,
+  issue_deleted: issuedeleted,
 };

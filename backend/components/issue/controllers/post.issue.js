@@ -47,7 +47,20 @@ module.exports = {
   delete: async (req, res) => {
     const Mantra = res.MantraAPI;
 
+    const issue = await Mantra.dal.issue.retrieveByIid(Mantra, req.MantraPostData.iid);
+
     const ret = await Mantra.dal.issue.removeByIid(Mantra, req.MantraPostData.iid);
+
+    const fatherissue = await Mantra.dal.issue.retrieveByIid(Mantra, issue.fatheriid);
+
+    await Mantra.dal.issue.updateByIid(
+      Mantra,
+      {
+        ...fatherissue,
+        childs: fatherissue.childs.filter((fiid) => fiid !== req.MantraPostData.iid),
+      },
+    );
+
     Mantra.EmitEvent('issue.deleted', { iid: req.MantraPostData.iid });
     Mantra.SendSuccess(ret);
   },

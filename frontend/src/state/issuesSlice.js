@@ -9,7 +9,6 @@ const issueSlice = createSlice({
   initialState,
   reducers: {
     issueAdded(state, action) {
-      debugger;
       const newstate = state;
       newstate.currentissue.childs = [...newstate.currentissue.childs, action.payload];
       return newstate;
@@ -17,8 +16,14 @@ const issueSlice = createSlice({
     issuesLoaded(state, action) {
       return { currentissue: action.payload };
     },
+    issueDeleted(state, action) {
+      debugger;
+      const newstate = state;
+      newstate.currentissue.childs = newstate.currentissue.childs
+        .filter((issue) => issue.iid !== action.payload);
+    },
   },
 });
 
-export const { issueAdded, issuesLoaded } = issueSlice.actions;
+export const { issueAdded, issuesLoaded, issueDeleted } = issueSlice.actions;
 export default issueSlice.reducer;

@@ -5,9 +5,10 @@ module.exports = {
     return iid;
   },
   updateRootIid: async (Mantra, params) => {
-    const rootiid = { iid: params.iid, uid: params.uid };
-
-    const ret = await Mantra.dal.user.updateRootIid(Mantra, rootiid);
+    const ret = await Mantra.dal.user.updateRootIssueByUid(
+      Mantra,
+      { iid: params.iid, uid: params.uid },
+    );
 
     return ret;
   },

@@ -20,9 +20,20 @@ async function addIssue(issue) {
   throw new Error('Error');
 }
 
+async function deleteIssue(iid) {
+  const response = await APIClient.post('/issue/delete', { iid });
+
+  if (response.data.success) {
+    return iid;
+  }
+
+  throw new Error('Error');
+}
+
 const Repo = {
   retrieveRootIssue,
   addIssue,
+  deleteIssue,
 };
 
 export default Repo;
