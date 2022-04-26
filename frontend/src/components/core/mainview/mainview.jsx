@@ -33,11 +33,9 @@ function MainView({ className }) {
           { (showissueform) ? <Button handler={handleDisableButton} text="Disabled" /> : <Button handler={handleNewIssueButton} text="Nuevo Issue" />}
           <h2 className={styles.title}>MainView</h2>
         </div>
+        { (showissueform) && <NewIssue /> }
         <div className={styles.mainviewbody}>
-          { (showissueform) && <NewIssue />}
-          <div className={styles.issueslist}>
-            { (!loading) && issueslist.map((b) => (<IssueNote issue={b} key={b.iid} />))}
-          </div>
+          { (!loading) && issueslist.map((b) => (<IssueNote issue={b} key={b.iid} />))}
         </div>
       </div>
     </div>
