@@ -1,6 +1,6 @@
 .issuenote{
   width: 15rem;
-  height: 10rem;
+  height: fit-content;
   flex-basis: 15rem;
   flex-shrink: 0;
   display: flex;
@@ -31,5 +31,20 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-grow: 1;
-  flex-basis: 100px;
+  flex-basis: 150px;
+  max-height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.actions{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-basis: 2rem;
+  flex-grow: 0;
+  border-top: 1px solid var(--lightissue);
+  padding-top: 5px;
 }

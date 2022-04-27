@@ -7,7 +7,7 @@ import EditIssue from '../newissue/editissue';
 import Button from '../../lib/button/button';
 import IssueNote from '../issuenote/issuenote';
 
-import { openIssueForm, closeIssueForm } from '../../../state/uiSlice';
+import { openIssueForm } from '../../../state/uiSlice';
 
 import styles from './styles.module.css';
 
@@ -24,15 +24,11 @@ function MainView({ className }) {
     dispatch(openIssueForm());
   };
 
-  const handleDisableButton = () => {
-    dispatch(closeIssueForm());
-  };
-
   return (
     <div className={className}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          { (!showissueform) && <Button handler={handleNewIssueButton} text="Nuevo Issue" />}
+          { (!showissueform) && <Button handler={handleNewIssueButton} text="add" icon />}
           <h2 className={styles.title}>MainView</h2>
         </div>
         { (showissueform) && <NewIssue /> }

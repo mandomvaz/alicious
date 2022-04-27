@@ -12,7 +12,7 @@ import styles from './styles.module.css';
 function IssueForm({ callback, ...options }) {
   const [title, setTitle] = useState((options.issue !== undefined) ? options.issue.title : '');
   const [description, setDescription] = useState((options.issue !== undefined) ? options.issue.description : '');
-  const [iid, setIId] = useState((options.issue !== undefined) ? options.issue.iid : '');
+  const iid = (options.issue !== undefined) ? options.issue.iid : '';
 
   const dispatch = useDispatch();
 

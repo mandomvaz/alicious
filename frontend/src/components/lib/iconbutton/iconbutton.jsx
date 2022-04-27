@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
+import Icon from '../icon/icon';
+
 import styles from './style.module.css';
 
 function IconButton({ icon, classname = '', handler = () => {} }) {
   return (
     <button className={`${styles.materialbutton} ${classname}`} onClick={handler} type="button">
-      <span className={`${styles.materialicons} ${styles.mdissue}`}>
-        {icon}
-      </span>
+      <Icon icon={icon} />
     </button>
   );
 }
