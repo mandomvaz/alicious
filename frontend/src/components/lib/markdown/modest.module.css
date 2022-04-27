@@ -1,0 +1,163 @@
+.modestmarkdown{
+
+}
+
+.modestmarkdown pre,
+.modestmarkdown code {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+
+.modestmarkdown pre {
+  padding: .5rem;
+  line-height: 1.25;
+  overflow-x: scroll;
+}
+
+.modestmarkdown a,
+.modestmarkdown a:visited {
+  color: #3498db;
+}
+
+.modestmarkdown a:hover,
+.modestmarkdown a:focus,
+.modestmarkdown a:active {
+  color: #2980b9;
+}
+
+.modestmarkdown .modest-no-decoration {
+  text-decoration: none;
+}
+
+.modestmarkdown html {
+  font-size: 12px;
+}
+
+@media screen and (min-width: 32rem) and (max-width: 48rem) {
+  .modestmarkdown html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .modestmarkdown html {
+    font-size: 16px;
+  }
+}
+
+.modestmarkdown body {
+  line-height: 1.85;
+}
+
+.modestmarkdown p,
+.modestmarkdown .modest-p {
+  font-size: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+.modestmarkdown h1,
+.modestmarkdown .modest-h1,
+.modestmarkdown h2,
+.modestmarkdown .modest-h2,
+.modestmarkdown h3,
+.modestmarkdown .modest-h3,
+.modestmarkdown h4,
+.modestmarkdown .modest-h4 {
+  margin: 1.414rem 0 .5rem;
+  font-weight: inherit;
+  line-height: 1.42;
+}
+
+.modestmarkdown h1,
+.modestmarkdown .modest-h1 {
+  margin-top: 0;
+  font-size: 3.998rem;
+}
+
+.modestmarkdown h2,
+.modestmarkdown .modest-h2 {
+  font-size: 2.827rem;
+}
+
+.modestmarkdown h3,
+.modestmarkdown .modest-h3 {
+  font-size: 1.999rem;
+}
+
+.modestmarkdown h4,
+.modestmarkdown .modest-h4 {
+  font-size: 1.414rem;
+}
+
+.modestmarkdown h5,
+.modestmarkdown .modest-h5 {
+  font-size: 1.121rem;
+}
+
+.modestmarkdown h6,
+.modestmarkdown .modest-h6 {
+  font-size: .88rem;
+}
+
+.modestmarkdown small,
+.modestmarkdown .modest-small {
+  font-size: .707em;
+}
+
+/* https://github.com/mrmrs/fluidity */
+
+.modestmarkdown img,
+.modestmarkdown canvas,
+.modestmarkdown iframe,
+.modestmarkdown video,
+.modestmarkdown svg,
+.modestmarkdown select,
+.modestmarkdown textarea {
+  max-width: 100%;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
+
+@import url(http://fonts.googleapis.com/css?family=Arimo:700,700italic);
+
+.modestmarkdown html {
+  font-size: 18px;
+  max-width: 100%;
+}
+
+.modestmarkdown body {
+  color: #444;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 48rem;
+  line-height: 1.45;
+  padding: .25rem;
+}
+
+.modestmarkdown h1,
+.modestmarkdown h2,
+.modestmarkdown h3,
+.modestmarkdown h4,
+.modestmarkdown h5,
+.modestmarkdown h6 {
+  font-family: Arimo, Helvetica, sans-serif;
+}
+
+.modestmarkdown h1,
+.modestmarkdown h2,
+.modestmarkdown h3 {
+  border-bottom: 2px solid #fafafa;
+  margin-bottom: 1.15rem;
+  padding-bottom: .5rem;
+  text-align: center;
+}
+
+.modestmarkdown blockquote {
+  border-left: 8px solid #fafafa;
+  padding: 1rem;
+}
+
+.modestmarkdown pre,
+.modestmarkdown code {
+  background-color: #fafafa;
+}

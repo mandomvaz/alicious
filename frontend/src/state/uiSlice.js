@@ -4,6 +4,8 @@ const initialState = {
   loadingIssues: false,
   showIssueForm: false,
   editIssueForm: false,
+  issueProperties: false,
+  showedIssue: {},
 };
 
 const uiSlice = createSlice({
@@ -28,10 +30,23 @@ const uiSlice = createSlice({
     closeEditIssueForm(state, action) {
       return { ...state, editIssueForm: false };
     },
+    openIssueProperties(state, action) {
+      return { ...state, issueProperties: true, showedIssue: action.payload };
+    },
+    closeIssueProperties(state, action) {
+      return { ...state, issueProperties: false, showedIssue: {} };
+    },
   },
 });
 
 export const {
-  loadedIssues, loadingIssues, openIssueForm, closeIssueForm, openEditIssueForm, closeEditIssueForm,
+  loadedIssues,
+  loadingIssues,
+  openIssueForm,
+  closeIssueForm,
+  openEditIssueForm,
+  closeEditIssueForm,
+  openIssueProperties,
+  closeIssueProperties,
 } = uiSlice.actions;
 export default uiSlice.reducer;

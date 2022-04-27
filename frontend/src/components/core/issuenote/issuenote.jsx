@@ -1,12 +1,11 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import IconButton from '../../lib/iconbutton/iconbutton';
+import Markdown from '../../lib/markdown/markdown';
 
 import IssueThunks from '../../../state/issueThunks';
-import { openEditIssueForm } from '../../../state/uiSlice';
+import { openEditIssueForm, openIssueProperties } from '../../../state/uiSlice';
 
 import styles from './issuenote.module.css';
 
@@ -19,6 +18,10 @@ function IssueNote({ issue }) {
     });
   };
 
+  const clickhandler = () => {
+    dispatch(openIssueProperties(issue));
+  };
+
   return (
     <div className={styles.issuenote}>
       <div className={styles.title}>
@@ -26,13 +29,15 @@ function IssueNote({ issue }) {
       </div>
       <div className={styles.body}>
         {/* <p className={styles.description}>{issue.description}</p> */}
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <Markdown>
           {issue.description}
-        </ReactMarkdown>
+        </Markdown>
       </div>
       <div className={styles.actions}>
         <IconButton icon="delete" handler={() => { dispatch(IssueThunks.deleteIssue(issue.iid)); }} />
         <IconButton icon="edit" handler={edithandler} />
+        <IconButton icon="wysiwyg " handler={clickhandler} />
+        <IconButton icon="launch" handler={clickhandler} />
       </div>
     </div>
   );
