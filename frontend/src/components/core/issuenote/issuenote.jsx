@@ -4,11 +4,18 @@ import PropTypes from 'prop-types';
 import IconButton from '../../lib/iconbutton/iconbutton';
 
 import IssueThunks from '../../../state/issueThunks';
+import { openEditIssueForm } from '../../../state/uiSlice';
 
 import styles from './issuenote.module.css';
 
 function IssueNote({ issue }) {
   const dispatch = useDispatch();
+
+  const edithandler = () => {
+    dispatch(IssueThunks.prepareEditIssue(issue.iid)).then(() => {
+      dispatch(openEditIssueForm());
+    });
+  };
 
   return (
     <div className={styles.issuenote}>
@@ -20,6 +27,7 @@ function IssueNote({ issue }) {
       </div>
       <div>
         <IconButton icon="delete" handler={() => { dispatch(IssueThunks.deleteIssue(issue.iid)); }} />
+        <IconButton icon="edit" handler={edithandler} />
       </div>
     </div>
   );

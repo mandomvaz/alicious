@@ -1,19 +1,24 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+
+import IssueThunks from '../../../state/issueThunks';
+import { closeEditIssueForm } from '../../../state/uiSlice';
 
 import IssueForm from './issueform';
 
-function EditIssue({ editIssue, issue }) {
+function EditIssue() {
+  const dispatch = useDispatch();
+
+  const issue = { ...useSelector((state) => state.issues.editingIssue) };
+
+  const editissue = (newissue) => {
+    dispatch(IssueThunks.editingIssue(newissue)).then(() => {
+      dispatch(closeEditIssueForm());
+    });
+  };
+
   return (
-    <IssueForm callback={editIssue} issue={issue} text="Editar" />
+    <IssueForm callback={editissue} issue={issue} text="Editar" />
   );
 }
 
 export default EditIssue;
-
-EditIssue.propTypes = {
-  editIssue: PropTypes.func.isRequired,
-  issue: PropTypes.shape({
-    title: PropTypes.string,
-    desc: PropTypes.string,
-  }).isRequired,
-};

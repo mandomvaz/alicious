@@ -1,4 +1,6 @@
-import { issueAdded, issuesLoaded, issueDeleted } from './issuesSlice';
+import {
+  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited,
+} from './issuesSlice';
 import { loadedIssues, loadingIssues } from './uiSlice';
 
 import IssueRepo from '../lib/repo/issuerepo';
@@ -23,16 +25,30 @@ function addIssue(issue) {
 
 function deleteIssue(iid) {
   return async (dispatch, getState) => {
-    debugger;
     await IssueRepo.deleteIssue(iid);
     dispatch(issueDeleted(iid));
   };
 }
 
-const IssueThunks = {
+function editingIssue(issue) {
+  return async (dispatch, getState) => {
+    await IssueRepo.editIssue(issue);
+    dispatch(issueEdited(issue));
+  };
+}
+
+function prepareEditIssue(iid) {
+  return async (dispatch, getState) => {
+    dispatch(editIssue(iid));
+  };
+}
+
+const issueThunks = {
   fetchIssues,
   addIssue,
   deleteIssue,
+  prepareEditIssue,
+  editingIssue,
 };
 
-export default IssueThunks;
+export default issueThunks;

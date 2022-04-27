@@ -1,23 +1,31 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from '../../lib/button/button';
+import IconButton from '../../lib/iconbutton/iconbutton';
+
+import { closeEditIssueForm, closeIssueForm } from '../../../state/uiSlice';
 
 import styles from './styles.module.css';
 
 function IssueForm({ callback, ...options }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [iid, setIId] = useState('');
+  const [title, setTitle] = useState((options.issue !== undefined) ? options.issue.title : '');
+  const [description, setDescription] = useState((options.issue !== undefined) ? options.issue.description : '');
+  const [iid, setIId] = useState((options.issue !== undefined) ? options.issue.iid : '');
 
-  if (options.issue !== undefined) {
-    setTitle(options.issue.title);
-    setDescription(options.issue.description);
-    setIId(options.issue.iid);
-  }
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     callback({ title, description, iid });
+  };
+
+  const handleClose = () => {
+    if (options.issue !== undefined) {
+      dispatch(closeEditIssueForm());
+    } else {
+      dispatch(closeIssueForm());
+    }
   };
 
   return (
@@ -29,6 +37,7 @@ function IssueForm({ callback, ...options }) {
             {' '}
             Issue
           </h2>
+          <IconButton icon="close" handler={handleClose} classname={styles.closeicon} />
         </div>
         <div className={styles.cardbody}>
           <div className={styles.formgroup}>
