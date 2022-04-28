@@ -4,11 +4,17 @@ module.exports = {
   get: async (req, res) => {
     const Mantra = res.MantraAPI;
     const { iid } = req.MantraPostData;
+    const { uid } = res.User;
 
-    const issue = await Mantra.dal.issue.retrieveByIid(Mantra, iid);
-    const poulatedIssue = await populateIssue(Mantra, issue);
+    const checkvisibility = await Mantra.Invoke('issueuser.checkvisibility', { iid, uid });
+    if (checkvisibility) {
+      const issue = await Mantra.dal.issue.retrieveByIid(Mantra, iid);
+      const poulatedIssue = await populateIssue(Mantra, issue);
 
-    Mantra.SendSuccess(poulatedIssue);
+      Mantra.SendSuccess(poulatedIssue);
+    } else {
+      Mantra.SendError('Error');
+    }
   },
   getrootissue: async (req, res) => {
     const Mantra = res.MantraAPI;

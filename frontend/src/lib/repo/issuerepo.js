@@ -10,6 +10,16 @@ async function retrieveRootIssue() {
   throw new Error('Error');
 }
 
+async function retrieveIssue(iid) {
+  const response = await APIClient.post('/issue/get', { iid });
+
+  if (response.data.success) {
+    return response.data.payload;
+  }
+
+  throw new Error('Error');
+}
+
 async function addIssue(issue) {
   const response = await APIClient.post('/issue/add', issue);
 
@@ -42,6 +52,7 @@ async function editIssue(issue) {
 
 const Repo = {
   retrieveRootIssue,
+  retrieveIssue,
   addIssue,
   deleteIssue,
   editIssue,

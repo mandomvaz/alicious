@@ -9,4 +9,12 @@ module.exports = {
 
     await db.D().W('iid=?', iid).R();
   },
+  retrieveByUidAndIid: async (Mantra, params) => {
+    const { iid, uid } = params;
+    const db = Mantra.ComponentEntities('issueuser').issueuser;
+
+    const issuesuser = await db.S().W('iid=?', iid).R();
+
+    return issuesuser.find((iu) => iu.uid === uid);
+  },
 };

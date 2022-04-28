@@ -8,7 +8,7 @@ import { loadingIssues } from '../../state/uiSlice';
 
 function initialstate(dispatch, getState) {
   dispatch(loadingIssues());
-  return dispatch(UserThunks.loginUser).then(() => dispatch(IssueThunks.fetchIssues));
+  return dispatch(UserThunks.loginUser).then(() => dispatch(IssueThunks.fetchIssuesGeneral()));
 }
 
 store.dispatch(initialstate);

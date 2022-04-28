@@ -1,6 +1,7 @@
-"use strict";
-
 module.exports = {
-    apimethod: async (Mantra, params) => {
-    }
-}
+  checkvisibility: async (Mantra, params) => {
+    const issueuser = await Mantra.dal.issueuser.retrieveByUidAndIid(Mantra, params);
+
+    return !!(issueuser);
+  },
+};

@@ -12,6 +12,21 @@ async function fetchIssues(dispatch, getState) {
   dispatch(loadedIssues());
 }
 
+function fetchIssuesGeneral(iid = '') {
+  return async (dispatch, getState) => {
+    debugger;
+    dispatch(loadingIssues());
+    let issues;
+    if (iid === '') {
+      issues = await IssueRepo.retrieveRootIssue();
+    } else {
+      issues = await IssueRepo.retrieveIssue(iid);
+    }
+    dispatch(issuesLoaded(issues));
+    dispatch(loadedIssues());
+  };
+}
+
 function addIssue(issue) {
   return async (dispatch, getState) => {
     const fatheriid = getState().issues.currentissue.iid;
@@ -49,6 +64,7 @@ const issueThunks = {
   deleteIssue,
   prepareEditIssue,
   editingIssue,
+  fetchIssuesGeneral,
 };
 
 export default issueThunks;

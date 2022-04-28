@@ -16,6 +16,7 @@ function MainView({ className }) {
   // const currentissue = useSelector((state) => state.issues.currentissue);
   const dispatch = useDispatch();
 
+  const viewTitle = useSelector((state) => state.issues.currentissue.title);
   const issueslist = useSelector((state) => state.issues.currentissue.childs);
   const loading = useSelector((state) => state.ui.loadingIssues);
   const showissueform = useSelector((state) => state.ui.showIssueForm);
@@ -29,7 +30,7 @@ function MainView({ className }) {
     <div className={className}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <h2 className={styles.title}>MainView</h2>
+          <h2 className={styles.title}>{viewTitle}</h2>
         </div>
         { (showissueform) && <NewIssue /> }
         { (showissueedit) && <EditIssue />}

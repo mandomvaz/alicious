@@ -18,8 +18,12 @@ function IssueNote({ issue }) {
     });
   };
 
-  const clickhandler = () => {
+  const infohandler = () => {
     dispatch(openIssueProperties(issue));
+  };
+
+  const setissuehandler = () => {
+    dispatch(IssueThunks.fetchIssuesGeneral(issue.iid));
   };
 
   return (
@@ -36,8 +40,8 @@ function IssueNote({ issue }) {
       <div className={styles.actions}>
         <IconButton icon="delete" handler={() => { dispatch(IssueThunks.deleteIssue(issue.iid)); }} />
         <IconButton icon="edit" handler={edithandler} />
-        <IconButton icon="wysiwyg " handler={clickhandler} />
-        <IconButton icon="launch" handler={clickhandler} />
+        <IconButton icon="wysiwyg " handler={infohandler} />
+        <IconButton icon="launch" handler={setissuehandler} />
       </div>
     </div>
   );
