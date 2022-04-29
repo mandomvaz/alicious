@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import Modal from '../../lib/modal/modal';
 import IconButton from '../../lib/iconbutton/iconbutton';
