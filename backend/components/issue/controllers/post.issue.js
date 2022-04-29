@@ -82,7 +82,11 @@ module.exports = {
   update: async (req, res) => {
     const Mantra = res.MantraAPI;
 
-    const ret = await Mantra.dal.issue.updateByIid(Mantra, { ...req.MantraPostData });
+    const issue = { ...req.MantraPostData };
+
+    delete issue.lid;
+
+    const ret = await Mantra.dal.issue.updateByIid(Mantra, issue);
 
     Mantra.SendSuccess(ret);
   },
