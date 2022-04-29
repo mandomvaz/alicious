@@ -19,7 +19,6 @@ function IssueForm({ callback, ...options }) {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    debugger;
     callback({
       title, description, iid, lid,
     });

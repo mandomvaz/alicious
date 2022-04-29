@@ -25,7 +25,6 @@ function ListForm({ callback, ...options }) {
   };
 
   const handleSubmit = () => {
-    debugger;
     callback({
       title, lid,
     });

@@ -16,7 +16,6 @@ function List({ list }) {
   const dispatch = useDispatch();
 
   const handleNewIssueButton = () => {
-    debugger;
     dispatch(openIssueForm(list.lid));
   };
 

@@ -16,40 +16,40 @@ const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    loadingIssues(state, action) {
+    loadingIssues(state) {
       return { ...state, loadingIssues: true };
     },
-    loadedIssues(state, action) {
+    loadedIssues(state) {
       return { ...state, loadingIssues: false };
     },
     openIssueForm(state, action) {
       return { ...state, showIssueForm: true, issueFormLid: action.payload };
     },
-    closeIssueForm(state, action) {
+    closeIssueForm(state) {
       return { ...state, showIssueForm: false, issueFormLid: '' };
     },
-    openEditIssueForm(state, action) {
+    openEditIssueForm(state) {
       return { ...state, editIssueForm: true };
     },
-    closeEditIssueForm(state, action) {
+    closeEditIssueForm(state) {
       return { ...state, editIssueForm: false };
     },
     openIssueProperties(state, action) {
       return { ...state, issueProperties: true, showedIssue: action.payload };
     },
-    closeIssueProperties(state, action) {
+    closeIssueProperties(state) {
       return { ...state, issueProperties: false, showedIssue: {} };
     },
-    openListAddForm(state, action) {
+    openListAddForm(state) {
       return { ...state, listAddForm: true };
     },
-    closeListAddForm(state, action) {
+    closeListAddForm(state) {
       return { ...state, listAddForm: false };
     },
-    openListEditForm(state, action) {
+    openListEditForm(state) {
       return { ...state, listEditForm: true };
     },
-    closeListEditForm(state, action) {
+    closeListEditForm(state) {
       return { ...state, listEditForm: false };
     },
   },
