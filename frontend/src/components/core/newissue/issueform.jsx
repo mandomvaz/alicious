@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from '../../lib/button/button';
@@ -14,11 +14,14 @@ function IssueForm({ callback, ...options }) {
   const [title, setTitle] = useState((options.issue !== undefined) ? options.issue.title : '');
   const [description, setDescription] = useState((options.issue !== undefined) ? options.issue.description : '');
   const iid = (options.issue !== undefined) ? options.issue.iid : '';
+  const lid = useSelector((state) => state.ui.issueFormLid);
 
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    callback({ title, description, iid });
+    callback({
+      title, description, iid, lid,
+    });
   };
 
   const handleClose = () => {

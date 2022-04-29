@@ -30,8 +30,8 @@ async function addIssue(issue) {
   throw new Error('Error');
 }
 
-async function deleteIssue(iid) {
-  const response = await APIClient.post('/issue/delete', { iid });
+async function deleteIssue({ iid, lid }) {
+  const response = await APIClient.post('/issue/delete', { iid, lid });
 
   if (response.data.success) {
     return iid;
@@ -50,12 +50,34 @@ async function editIssue(issue) {
   throw new Error('Error');
 }
 
+async function editList(list) {
+  const response = await APIClient.post('/list/update', list);
+
+  if (response.data.success) {
+    return list;
+  }
+
+  throw new Error('Error');
+}
+
+async function addList(list) {
+  const response = await APIClient.post('/list/add', list);
+
+  if (response.data.success) {
+    return list;
+  }
+
+  throw new Error('Error');
+}
+
 const Repo = {
   retrieveRootIssue,
   retrieveIssue,
   addIssue,
   deleteIssue,
   editIssue,
+  editList,
+  addList,
 };
 
 export default Repo;

@@ -46,7 +46,14 @@ module.exports = {
       { ...fatherissue, childs: [...fatherissue.childs, iid] },
     );
 
-    Mantra.EmitEvent('issue.added', { iid, uid: res.User.uid, fatheriid: req.MantraPostData.fatheriid });
+    await Mantra.Invoke('list.addIssueToList', { lid: req.MantraPostData.lid, iid });
+
+    Mantra.EmitEvent('issue.added', {
+      iid,
+      uid: res.User.uid,
+      fatheriid: req.MantraPostData.fatheriid,
+      lid: req.MantraPostData.lid,
+    });
 
     Mantra.SendSuccess(iid);
   },
@@ -66,6 +73,8 @@ module.exports = {
         childs: fatherissue.childs.filter((fiid) => fiid !== req.MantraPostData.iid),
       },
     );
+
+    await Mantra.Invoke('list.removeIssueFromList', { lid: req.MantraPostData.lid, iid: req.MantraPostData.iid });
 
     Mantra.EmitEvent('issue.deleted', { iid: req.MantraPostData.iid });
     Mantra.SendSuccess(ret);

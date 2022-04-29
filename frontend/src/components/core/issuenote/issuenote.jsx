@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../../lib/iconbutton/iconbutton';
 import Markdown from '../../lib/markdown/markdown';
 
+import ListContext from '../../context/listcontext';
 import IssueThunks from '../../../state/issueThunks';
 import { openEditIssueForm, openIssueProperties } from '../../../state/uiSlice';
 
@@ -11,6 +13,11 @@ import styles from './issuenote.module.css';
 
 function IssueNote({ issue }) {
   const dispatch = useDispatch();
+  const lid = useContext(ListContext);
+
+  const deletehandler = () => {
+    dispatch(IssueThunks.deleteIssue({ iid: issue.iid, lid }));
+  };
 
   const edithandler = () => {
     dispatch(IssueThunks.prepareEditIssue(issue.iid)).then(() => {
@@ -31,14 +38,13 @@ function IssueNote({ issue }) {
       <div className={styles.title}>
         <h3>{issue.title}</h3>
       </div>
-      <div className={styles.body}>
-        {/* <p className={styles.description}>{issue.description}</p> */}
+      {/* <div className={styles.body}>
         <Markdown>
           {issue.description}
         </Markdown>
-      </div>
+      </div> */}
       <div className={styles.actions}>
-        <IconButton icon="delete" handler={() => { dispatch(IssueThunks.deleteIssue(issue.iid)); }} />
+        <IconButton icon="delete" handler={deletehandler} />
         <IconButton icon="edit" handler={edithandler} />
         <IconButton icon="wysiwyg " handler={infohandler} />
         <IconButton icon="launch" handler={setissuehandler} />

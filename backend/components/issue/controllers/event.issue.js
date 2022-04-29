@@ -16,6 +16,7 @@ module.exports = {
     );
 
     Mantra.Invoke('user.updateRootIid', { iid: newid, uid: eventData.userAdded.uid });
+    Mantra.Invoke('list.addList', { title: 'Default list', iid: newid });
 
     // Mantra.EmitEvent('issue.added', { iid: newid, uid: eventData.userAdded.uid });
     Mantra.EmitEvent('issue.rootadded', { iid: newid, uid: eventData.userAdded.uid });

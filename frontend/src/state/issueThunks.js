@@ -1,5 +1,5 @@
 import {
-  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited,
+  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited, editList, listEdited, listAdded,
 } from './issuesSlice';
 import { loadedIssues, loadingIssues } from './uiSlice';
 
@@ -14,7 +14,6 @@ async function fetchIssues(dispatch, getState) {
 
 function fetchIssuesGeneral(iid = '') {
   return async (dispatch, getState) => {
-    debugger;
     dispatch(loadingIssues());
     let issues;
     if (iid === '') {
@@ -38,9 +37,9 @@ function addIssue(issue) {
   };
 }
 
-function deleteIssue(iid) {
+function deleteIssue({ iid, lid }) {
   return async (dispatch, getState) => {
-    await IssueRepo.deleteIssue(iid);
+    await IssueRepo.deleteIssue({ iid, lid });
     dispatch(issueDeleted(iid));
   };
 }
@@ -58,6 +57,26 @@ function prepareEditIssue(iid) {
   };
 }
 
+function prepareEditList(lid) {
+  return async (dispatch, getState) => {
+    dispatch(editList(lid));
+  };
+}
+
+function editingList(list) {
+  return async (dispatch, getState) => {
+    await IssueRepo.editList(list);
+    dispatch(listEdited(list));
+  };
+}
+
+function addingList(list) {
+  return async (dispatch, getState) => {
+    await IssueRepo.addList(list);
+    dispatch(listAdded(list));
+  };
+}
+
 const issueThunks = {
   fetchIssues,
   addIssue,
@@ -65,6 +84,9 @@ const issueThunks = {
   prepareEditIssue,
   editingIssue,
   fetchIssuesGeneral,
+  prepareEditList,
+  editingList,
+  addingList,
 };
 
 export default issueThunks;

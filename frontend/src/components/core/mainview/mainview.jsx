@@ -1,31 +1,26 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
 import NewIssue from '../newissue/newissue';
 import EditIssue from '../newissue/editissue';
-import Button from '../../lib/button/button';
-import IssueNote from '../issuenote/issuenote';
+import List from '../list/list';
+import EditList from '../newlist/editlist';
 import IssueProperties from '../issueproperties/issueproperties';
-
-import { openIssueForm } from '../../../state/uiSlice';
 
 import styles from './styles.module.css';
 
 function MainView({ className }) {
   // const currentissue = useSelector((state) => state.issues.currentissue);
-  const dispatch = useDispatch();
 
   const viewTitle = useSelector((state) => state.issues.currentissue.title);
-  const issueslist = useSelector((state) => state.issues.currentissue.childs);
+  const issueslists = useSelector((state) => state.issues.currentissue.lists);
   const loading = useSelector((state) => state.ui.loadingIssues);
   const showissueform = useSelector((state) => state.ui.showIssueForm);
   const showissueedit = useSelector((state) => state.ui.editIssueForm);
   const showissueproperties = useSelector((state) => state.ui.issueProperties);
+  const showlistedit = useSelector((state) => state.ui.listEditForm);
 
-  const handleNewIssueButton = () => {
-    dispatch(openIssueForm());
-  };
   return (
     <div className={className}>
       <div className={styles.wrapper}>
@@ -34,9 +29,9 @@ function MainView({ className }) {
         </div>
         { (showissueform) && <NewIssue /> }
         { (showissueedit) && <EditIssue />}
+        { (showlistedit) && <EditList />}
         <div className={styles.mainviewbody}>
-          { (!loading) && issueslist.map((b) => (<IssueNote issue={b} key={b.iid} />))}
-          { (!showissueform) && <Button handler={handleNewIssueButton} text="add" icon classname={styles.centerbutton} />}
+          { (!loading) && issueslists.map((b) => (<List list={b} key={b.lid} />))}
           { (showissueproperties) && <IssueProperties />}
         </div>
       </div>

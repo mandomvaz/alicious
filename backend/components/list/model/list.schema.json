@@ -1,0 +1,19 @@
+{
+  "entities" : [
+      {
+          "name" : "list",
+          "fields": [
+              { "name" : "lid", "type" : "string" },
+              { "name" : "title", "type" : "string" },
+              { "name" : "iid", "type" : "string" },
+              { "name" : "issues", "type" : "json" },
+              { "name" : "services", "type" : "json" },
+              { "name" : "created", "type" : "datetime"}
+          ],
+          "indexes": [ ["lid"], ["iid"] ],
+          "restrictions": {
+              "unique": [["lid"]]
+          }
+      }
+  ]
+}

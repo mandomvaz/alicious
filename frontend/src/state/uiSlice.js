@@ -5,7 +5,11 @@ const initialState = {
   showIssueForm: false,
   editIssueForm: false,
   issueProperties: false,
+  listAddForm: false,
+  listEditForm: false,
   showedIssue: {},
+  issueFormLid: '',
+  listEdit: {},
 };
 
 const uiSlice = createSlice({
@@ -19,10 +23,10 @@ const uiSlice = createSlice({
       return { ...state, loadingIssues: false };
     },
     openIssueForm(state, action) {
-      return { ...state, showIssueForm: true };
+      return { ...state, showIssueForm: true, issueFormLid: action.payload };
     },
     closeIssueForm(state, action) {
-      return { ...state, showIssueForm: false };
+      return { ...state, showIssueForm: false, issueFormLid: '' };
     },
     openEditIssueForm(state, action) {
       return { ...state, editIssueForm: true };
@@ -36,6 +40,18 @@ const uiSlice = createSlice({
     closeIssueProperties(state, action) {
       return { ...state, issueProperties: false, showedIssue: {} };
     },
+    openListAddForm(state, action) {
+      return { ...state, listAddForm: true };
+    },
+    closeListAddForm(state, action) {
+      return { ...state, listAddForm: false };
+    },
+    openListEditForm(state, action) {
+      return { ...state, listEditForm: true };
+    },
+    closeListEditForm(state, action) {
+      return { ...state, listEditForm: false };
+    },
   },
 });
 
@@ -48,5 +64,9 @@ export const {
   closeEditIssueForm,
   openIssueProperties,
   closeIssueProperties,
+  openListAddForm,
+  closeListAddForm,
+  openListEditForm,
+  closeListEditForm,
 } = uiSlice.actions;
 export default uiSlice.reducer;

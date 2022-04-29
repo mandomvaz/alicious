@@ -1,7 +1,6 @@
 .issuenote{
   width: 15rem;
   height: fit-content;
-  flex-basis: 15rem;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;

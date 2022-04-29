@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { current } from 'immer';
 
 const initialState = {
   currentissue: {},
   editingIssue: {},
+  editingList: {},
 };
 
 const issueSlice = createSlice({
@@ -12,6 +14,10 @@ const issueSlice = createSlice({
     issueAdded(state, action) {
       const newstate = state;
       newstate.currentissue.childs = [...newstate.currentissue.childs, action.payload];
+      newstate.currentissue.lists = newstate.currentissue.lists.map((list) => (
+        (list.lid !== action.payload.lid)
+          ? list
+          : { ...list, issues: [...list.issues, action.payload] }));
       return newstate;
     },
     issuesLoaded(state, action) {
@@ -39,6 +45,25 @@ const issueSlice = createSlice({
       newstate.editingIssue = {};
       return newstate;
     },
+    editList(state, action) {
+      const list = state.currentissue.lists.find((l) => l.lid === action.payload);
+      return { ...state, editingList: { lid: list.lid, title: list.title } };
+    },
+    listEdited(state, action) {
+      const newstate = state;
+      newstate.currentissue.lists = state.currentissue.lists
+        .map((list) => ((list.lid === action.payload.lid)
+          ? { ...list, title: action.payload.title }
+          : list));
+
+      return newstate;
+    },
+    listAdded(state, action) {
+      const newstate = state;
+      const newlist = action.payload;
+      newstate.currentissue.lists = [...newstate.currentissue.lists, { ...newlist, issues: [] }];
+      return newstate;
+    },
   },
 });
 
@@ -48,5 +73,8 @@ export const {
   issueDeleted,
   editIssue,
   issueEdited,
+  editList,
+  listEdited,
+  listAdded,
 } = issueSlice.actions;
 export default issueSlice.reducer;
