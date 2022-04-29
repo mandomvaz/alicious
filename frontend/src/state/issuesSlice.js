@@ -60,8 +60,8 @@ const issueSlice = createSlice({
     },
     listAdded(state, action) {
       const newstate = state;
-      const newlist = action.payload;
-      newstate.currentissue.lists = [...newstate.currentissue.lists, { ...newlist, issues: [] }];
+      const { title, lid } = action.payload;
+      newstate.currentissue.lists = [...newstate.currentissue.lists, { title, lid, issues: [] }];
       return newstate;
     },
   },

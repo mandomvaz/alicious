@@ -72,8 +72,8 @@ function editingList(list) {
 
 function addingList(list) {
   return async (dispatch, getState) => {
-    await IssueRepo.addList(list);
-    dispatch(listAdded(list));
+    const listadded = await IssueRepo.addList(list);
+    dispatch(listAdded(listadded));
   };
 }
 

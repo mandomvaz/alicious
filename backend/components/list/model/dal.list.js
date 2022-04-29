@@ -4,8 +4,8 @@ module.exports = {
   add: async (Mantra, list) => {
     const db = Mantra.ComponentEntities('list').list;
     const newlist = { ...list, lid: nanoid.nanoid() };
-
-    return db.I().V(newlist).R();
+    await db.I().V(newlist).R();
+    return newlist;
   },
   update: async (Mantra, list) => {
     const db = Mantra.ComponentEntities('list').list;

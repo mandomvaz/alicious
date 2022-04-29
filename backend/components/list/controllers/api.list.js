@@ -7,13 +7,13 @@ module.exports = {
       services: [],
     };
 
-    const issue = await Mantra.dal.list.add(Mantra, list);
+    const newlist = await Mantra.dal.list.add(Mantra, list);
 
-    return issue;
+    return newlist;
   },
   addIssueToList: async (Mantra, { lid, iid }) => {
     const list = await Mantra.dal.list.retriveByLid(Mantra, lid);
-    list.issues = [...list.issues, { iid, order: list.issues.lenght }];
+    list.issues = [...list.issues, { iid, order: list.issues.length }];
     await Mantra.dal.list.update(Mantra, list);
 
     return list;
@@ -26,14 +26,19 @@ module.exports = {
   populateListsByIId: async (Mantra, { iid, issues: issuesStore }) => {
     const lists = await Mantra.dal.list.retriveByIId(Mantra, iid);
 
-    const populatedLists = lists.map((list) => {
-      const populatedissues = list.issues.sort((a, b) => a.order - b.order)
-        .map((iss) => issuesStore.find(
-          (i) => i.iid === iss.iid,
-        ));
+    const populatedLists = lists
+      .sort((a, b) => {
+        const ret = (new Date(a.created)) - (new Date(b.created));
+        return ret;
+      })
+      .map((list) => {
+        const populatedissues = list.issues.sort((a, b) => a.order - b.order)
+          .map((iss) => issuesStore.find(
+            (i) => i.iid === iss.iid,
+          ));
 
-      return { ...list, issues: populatedissues };
-    });
+        return { ...list, issues: populatedissues };
+      });
 
     return populatedLists;
   },

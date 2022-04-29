@@ -64,7 +64,7 @@ async function addList(list) {
   const response = await APIClient.post('/list/add', list);
 
   if (response.data.success) {
-    return list;
+    return response.data.payload;
   }
 
   throw new Error('Error');
