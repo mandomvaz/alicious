@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { useContext } from 'react';
+import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 
 import IconButton from '../../lib/iconbutton/iconbutton';
-import Markdown from '../../lib/markdown/markdown';
 
 import ListContext from '../../context/listcontext';
 import IssueThunks from '../../../state/issueThunks';
 import { openEditIssueForm, openIssueProperties } from '../../../state/uiSlice';
+import DragDropItemTypes from '../../../lib/constants/dnditemtypes';
 
 import styles from './issuenote.module.css';
 
@@ -33,8 +34,33 @@ function IssueNote({ issue }) {
     dispatch(IssueThunks.fetchIssuesGeneral(issue.iid));
   };
 
+  // #region DragNDrop
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: DragDropItemTypes.ISSUE,
+    item: { iid: issue.iid, lid },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (item && dropResult) {
+        console.log(`End item ${item.iid} from lid: ${item.lid} to lid: ${dropResult.lid} at ${dropResult.targetposition}`);
+        dispatch(IssueThunks.movingIssueTo({
+          iid: item.iid,
+          fromlid: lid,
+          tolid: dropResult.lid,
+          targetposition: dropResult.targetposition,
+        }));
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+      handlerId: monitor.getHandlerId(),
+    }),
+  }));
+
+  // #endregion
+
   return (
-    <div className={styles.issuenote}>
+    <div className={styles.issuenote} ref={drag}>
       <div className={styles.title}>
         <h3>{issue.title}</h3>
       </div>

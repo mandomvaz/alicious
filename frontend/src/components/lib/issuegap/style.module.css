@@ -1,0 +1,27 @@
+.gap{
+  width: fit-content;
+  background: none;
+}
+
+.candrop{
+}
+
+.over{
+  padding-top: 50px; 
+}
+
+.nochildren{
+  width: 15rem;
+  height: 5px;
+}
+
+.placeholder{
+  border: 1px solid var(--lightissue);
+  border-radius: 8px;
+  height: 108px;
+  display: none;
+}
+
+.overwithoutchildren .placeholder{
+  display: block;
+}

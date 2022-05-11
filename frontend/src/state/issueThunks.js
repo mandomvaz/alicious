@@ -1,9 +1,10 @@
 import {
-  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited, editList, listEdited, listAdded,
+  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited, editList, listEdited, listAdded, issueMovedTo,
 } from './issuesSlice';
 import { loadedIssues, loadingIssues } from './uiSlice';
 
 import IssueRepo from '../lib/repo/issuerepo';
+import { APIClientPublic } from '../lib/helpers/apiclient';
 
 async function fetchIssues(dispatch, getState) {
   dispatch(loadingIssues());
@@ -77,6 +78,19 @@ function addingList(list) {
   };
 }
 
+function movingIssueTo({
+  iid, fromlid, tolid, targetposition,
+}) {
+  return async (dispatch, getState) => {
+    await IssueRepo.moveIssueTo({
+      iid, fromlid, tolid, targetposition,
+    });
+    dispatch(issueMovedTo({
+      iid, fromlid, tolid, targetposition,
+    }));
+  };
+}
+
 const issueThunks = {
   fetchIssues,
   addIssue,
@@ -87,6 +101,7 @@ const issueThunks = {
   prepareEditList,
   editingList,
   addingList,
+  movingIssueTo,
 };
 
 export default issueThunks;

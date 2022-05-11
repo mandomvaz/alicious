@@ -70,6 +70,16 @@ async function addList(list) {
   throw new Error('Error');
 }
 
+async function moveIssueTo(params) {
+  const response = await APIClient.post('/list/moveto', params);
+
+  if (response.data.success) {
+    return response.data.payload;
+  }
+
+  throw new Error('Error');
+}
+
 const Repo = {
   retrieveRootIssue,
   retrieveIssue,
@@ -78,6 +88,7 @@ const Repo = {
   editIssue,
   editList,
   addList,
+  moveIssueTo,
 };
 
 export default Repo;

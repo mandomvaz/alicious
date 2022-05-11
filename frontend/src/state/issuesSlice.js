@@ -64,6 +64,46 @@ const issueSlice = createSlice({
       newstate.currentissue.lists = [...newstate.currentissue.lists, { title, lid, issues: [] }];
       return newstate;
     },
+    issueMovedTo(state, action) {
+      console.log('listaction');
+      const {
+        iid, fromlid, tolid, targetposition,
+      } = action.payload;
+      const currentstate = current(state);
+      const issue = currentstate.currentissue.childs.find((i) => i.iid === iid);
+
+      const listsource = { ...currentstate.currentissue.lists.find((i) => i.lid === fromlid) };
+
+      listsource.issues = listsource.issues.filter((i) => i.iid !== iid);
+
+      const listtarget = (fromlid === tolid)
+        ? listsource
+        : { ...currentstate.currentissue.lists.find((i) => i.lid === tolid) };
+
+      const issuestarget = [...listtarget.issues];
+
+      const index = (targetposition !== '') ? issuestarget.findIndex((f) => f.iid === targetposition) : issuestarget.length;
+
+      const updatedissuestarget = [
+        ...issuestarget.splice(0, index),
+        issue,
+        ...issuestarget,
+      ];
+
+      listtarget.issues = updatedissuestarget;
+
+      const newstate = state;
+      newstate.currentissue.lists = newstate.currentissue.lists.map((list) => {
+        if (list.lid === listsource.lid) {
+          return listsource;
+        }
+        if (list.lid === listtarget.lid) {
+          return listtarget;
+        }
+        return list;
+      });
+      return newstate;
+    },
   },
 });
 
@@ -76,5 +116,6 @@ export const {
   editList,
   listEdited,
   listAdded,
+  issueMovedTo,
 } = issueSlice.actions;
 export default issueSlice.reducer;
