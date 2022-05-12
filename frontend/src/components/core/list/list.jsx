@@ -56,7 +56,7 @@ function List({ list }) {
           <Button handler={handleNewIssueButton} text="add" icon classname="" />
         </div>
         <div className={style.issues}>
-          {list.issues.map((issue, index, arr) => (
+          {list.issues.map((issue) => (
             <IssueGap
               me={issue.iid}
               key={`${issue.iid}${issue.iid}`}

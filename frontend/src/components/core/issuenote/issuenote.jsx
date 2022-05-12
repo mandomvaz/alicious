@@ -42,7 +42,6 @@ function IssueNote({ issue }) {
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        console.log(`End item ${item.iid} from lid: ${item.lid} to lid: ${dropResult.lid} at ${dropResult.targetposition}`);
         dispatch(IssueThunks.movingIssueTo({
           iid: item.iid,
           fromlid: lid,
