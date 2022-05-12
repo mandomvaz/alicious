@@ -49,4 +49,29 @@ module.exports = {
 
     Mantra.SendSuccess();
   },
+  movelistforward: async (req, res) => {
+    const Mantra = res.MantraAPI;
+    const { lid, iid, forward } = req.MantraPostData;
+
+    let lists = await Mantra.dal.list.retriveByIId(Mantra, iid);
+    lists = lists.sort((a, b) => a.position - b.position);
+
+    const indextomove = lists.findIndex((f) => f.lid === lid);
+    const listtomove = lists.at(indextomove);
+
+    const indexvictim = (forward) ? indextomove + 1 : indextomove - 1;
+    const listvictim = lists.at(indexvictim);
+
+    const positionTemporal = listtomove.position;
+
+    listtomove.position = listvictim.position;
+    listvictim.position = positionTemporal;
+
+    await Promise.all([
+      Mantra.dal.list.update(Mantra, listtomove),
+      Mantra.dal.list.update(Mantra, listvictim),
+    ]);
+
+    Mantra.SendSuccess();
+  },
 };

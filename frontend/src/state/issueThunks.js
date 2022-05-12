@@ -1,5 +1,14 @@
 import {
-  issueAdded, issuesLoaded, issueDeleted, editIssue, issueEdited, editList, listEdited, listAdded, issueMovedTo,
+  issueAdded,
+  issuesLoaded,
+  issueDeleted,
+  editIssue,
+  issueEdited,
+  editList,
+  listEdited,
+  listAdded,
+  issueMovedTo,
+  listMovedForward,
 } from './issuesSlice';
 import { loadedIssues, loadingIssues } from './uiSlice';
 
@@ -91,6 +100,18 @@ function movingIssueTo({
   };
 }
 
+function movingList(forward, lid) {
+  return async (dispatch, getState) => {
+    const { iid } = getState().issues.currentissue;
+    await IssueRepo.moveListForward({
+      iid, lid, forward,
+    });
+    dispatch(listMovedForward({
+      forward, lid,
+    }));
+  };
+}
+
 const issueThunks = {
   fetchIssues,
   addIssue,
@@ -102,6 +123,7 @@ const issueThunks = {
   editingList,
   addingList,
   movingIssueTo,
+  movingList,
 };
 
 export default issueThunks;

@@ -80,6 +80,16 @@ async function moveIssueTo(params) {
   throw new Error('Error');
 }
 
+async function moveListForward(params) {
+  const response = await APIClient.post('/list/movelistforward', params);
+
+  if (response.data.success) {
+    return response.data.payload;
+  }
+
+  throw new Error('Error');
+}
+
 const Repo = {
   retrieveRootIssue,
   retrieveIssue,
@@ -89,6 +99,7 @@ const Repo = {
   editList,
   addList,
   moveIssueTo,
+  moveListForward,
 };
 
 export default Repo;

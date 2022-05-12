@@ -1,8 +1,11 @@
 module.exports = {
   addList: async (Mantra, { title, iid }) => {
+    const lists = await Mantra.dal.list.retriveByIId(Mantra, iid);
+
     const list = {
       title,
       iid,
+      position: lists.length,
       issues: [],
       services: [],
     };
@@ -21,16 +24,13 @@ module.exports = {
   retrieveListsByIId: async (Mantra, { iid }) => {
     const lists = await Mantra.dal.list.retriveByIId(Mantra, iid);
 
-    return lists;
+    return lists.sort((a, b) => a.position - b.position);
   },
   populateListsByIId: async (Mantra, { iid, issues: issuesStore }) => {
     const lists = await Mantra.dal.list.retriveByIId(Mantra, iid);
 
     const populatedLists = lists
-      .sort((a, b) => {
-        const ret = (new Date(a.created)) - (new Date(b.created));
-        return ret;
-      })
+      .sort((a, b) => a.position - b.position)
       .map((list) => {
         const populatedissues = list.issues.sort((a, b) => a.order - b.order)
           .map((iss) => issuesStore.find(

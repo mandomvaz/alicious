@@ -65,7 +65,6 @@ const issueSlice = createSlice({
       return newstate;
     },
     issueMovedTo(state, action) {
-      console.log('listaction');
       const {
         iid, fromlid, tolid, targetposition,
       } = action.payload;
@@ -104,6 +103,33 @@ const issueSlice = createSlice({
       });
       return newstate;
     },
+    listMovedForward(state, action) {
+      const currentstate = current(state);
+
+      const lists = [...currentstate.currentissue.lists];
+
+      const listIndex = lists.findIndex((f) => f.lid === action.payload.lid);
+      const list = lists[listIndex];
+
+      let segmentA;
+      let segmentB;
+
+      if (action.payload.forward) {
+        segmentA = [...lists.splice(0, listIndex + 2).filter((f) => f.lid !== action.payload.lid)];
+        segmentB = [...lists];
+      } else {
+        segmentA = [...lists.splice(0, listIndex - 1)];
+        segmentB = [...lists.filter((f) => f.lid !== action.payload.lid)];
+      }
+      const newLists = [
+        ...segmentA,
+        list,
+        ...segmentB,
+      ];
+      const newstate = state;
+      newstate.currentissue.lists = newLists;
+      return newstate;
+    },
   },
 });
 
@@ -117,5 +143,6 @@ export const {
   listEdited,
   listAdded,
   issueMovedTo,
+  listMovedForward,
 } = issueSlice.actions;
 export default issueSlice.reducer;
