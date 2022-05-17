@@ -7,7 +7,7 @@ module.exports = {
     return db.S().W('iid=?', iid).Single();
   },
   add: async (Mantra, issue) => {
-    const db = Mantra.ComponentEntities('issue').issue;
+    const db = Mantra.ComponcreatedentEntities('issue').issue;
 
     const issuetoinsert = { ...issue, iid: nanoid.nanoid() };
 
