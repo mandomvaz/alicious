@@ -9,7 +9,7 @@
 
 .menu{
   flex: none;
-  flex-basis: 250px;
+  flex-basis: 200px;
   background-color: var(--darkissue);
   border-right: 1px solid var(--lightissue);
   color: white;

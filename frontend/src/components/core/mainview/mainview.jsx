@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { openListAddForm } from '../../../state/uiSlice';
+import IssueThunks from '../../../state/issueThunks';
 
 import NewIssue from '../newissue/newissue';
 import EditIssue from '../newissue/editissue';
@@ -13,6 +14,7 @@ import IssueProperties from '../issueproperties/issueproperties';
 
 import styles from './styles.module.css';
 import Button from '../../lib/button/button';
+import IconButton from '../../lib/iconbutton/iconbutton';
 
 function MainView({ className }) {
   // const currentissue = useSelector((state) => state.issues.currentissue);
@@ -25,6 +27,7 @@ function MainView({ className }) {
   const showissueproperties = useSelector((state) => state.ui.issueProperties);
   const showlistedit = useSelector((state) => state.ui.listEditForm);
   const showlistadd = useSelector((state) => state.ui.listAddForm);
+  const fatheriid = useSelector((state) => state.issues.currentissue.fatheriid);
 
   const dispatch = useDispatch();
 
@@ -32,11 +35,16 @@ function MainView({ className }) {
     dispatch(openListAddForm());
   };
 
+  const handlerGoUpLevel = () => {
+    dispatch(IssueThunks.fetchIssuesGeneral(fatheriid));
+  };
+
   return (
     <div className={className}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <h2 className={styles.title}>{viewTitle}</h2>
+          {(fatheriid !== 'root') && <IconButton icon="arrow_upward" handler={handlerGoUpLevel} />}
         </div>
         { (showissueform) && <NewIssue /> }
         { (showissueedit) && <EditIssue />}

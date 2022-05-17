@@ -1,3 +1,20 @@
+.menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .title{
-  font-size: larger;
+  font-size: xx-large;
+}
+
+.username{
+  font-size: medium;
+}
+
+.userimage{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

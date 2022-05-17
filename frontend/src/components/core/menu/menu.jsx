@@ -8,13 +8,12 @@ function Menu({ className }) {
 
   return (
     <aside className={className}>
-      <div>
+      <div className={styles.menu}>
         <h1 className={styles.title}>Alicious</h1>
-        <h1 className={styles.title}>
-          User ID:
-          {' '}
-          {user.uid}
-        </h1>
+        {/* <h2 className={styles.username}>
+          {user.name}
+        </h2> */}
+        <img src={user.pictureurl} alt="" className={styles.userimage} />
       </div>
     </aside>
   );
