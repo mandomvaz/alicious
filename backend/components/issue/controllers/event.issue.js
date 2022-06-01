@@ -19,6 +19,6 @@ module.exports = {
     await Mantra.Invoke('list.addList', { title: 'Default list', iid: newid });
 
     // Mantra.EmitEvent('issue.added', { iid: newid, uid: eventData.userAdded.uid });
-    Mantra.EmitEvent('issue.rootadded', { iid: newid, uid: eventData.userAdded.uid });
+    await Mantra.EmitEvent('issue.rootadded', { iid: newid, uid: eventData.userAdded.uid });
   },
 };

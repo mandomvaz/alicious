@@ -12,7 +12,7 @@ async function addUser(Mantra, userinfo) {
       pictureurl: userinfo.picture,
     },
   );
-  Mantra.EmitEvent('user.added', { userAdded: user });
+  await Mantra.EmitEvent('user.added', { userAdded: user });
   return user;
 }
 

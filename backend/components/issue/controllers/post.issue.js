@@ -48,7 +48,7 @@ module.exports = {
 
     await Mantra.Invoke('list.addIssueToList', { lid: req.MantraPostData.lid, iid });
 
-    Mantra.EmitEvent('issue.added', {
+    await Mantra.EmitEvent('issue.added', {
       iid,
       uid: res.User.uid,
       fatheriid: req.MantraPostData.fatheriid,
@@ -76,7 +76,7 @@ module.exports = {
 
     await Mantra.Invoke('list.removeIssueFromList', { lid: req.MantraPostData.lid, iid: req.MantraPostData.iid });
 
-    Mantra.EmitEvent('issue.deleted', { iid: req.MantraPostData.iid });
+    await Mantra.EmitEvent('issue.deleted', { iid: req.MantraPostData.iid });
     Mantra.SendSuccess(ret);
   },
   update: async (req, res) => {

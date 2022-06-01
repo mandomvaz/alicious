@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseconfig = {
-  baseURL: 'http://100.125.218.111/api',
+  baseURL: 'http://localhost/api',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
