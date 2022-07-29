@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\adapters\EFRepositoryAdapter\EFRepositoryAdapter.csproj" />
+    <ProjectReference Include="..\..\core\Issue\Issue.csproj" />
+    <ProjectReference Include="..\..\core\User\User.csproj" />
+    <ProjectReference Include="..\..\ports\DataTransferObjects\DataTransferObjects.csproj" />
+    <ProjectReference Include="..\..\ports\Ports\Ports.csproj" />
+  </ItemGroup>
+
+</Project>
