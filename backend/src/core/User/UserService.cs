@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using DataTransferObjects;
+﻿using DataTransferObjects;
 
 using Ports.Issue;
 using Ports.User;
@@ -20,8 +14,8 @@ namespace User
 
         public UserService(IUserRepository repo, IIssueService issueService)
         {
-            _userRepository = repo;
-            _issueService = issueService;
+            this._userRepository = repo;
+            this._issueService = issueService;
         }
 
         public UserDTO AddUser(string name, string fullname, string email, string picture, string sub)
@@ -36,21 +30,21 @@ namespace User
                 Guid = Guid.NewGuid(),
             };
 
-            UserDTO userDTO = _userRepository.AddUser(user);
+            UserDTO userDTO = this._userRepository.AddUser(user);
 
-            _issueService.AddRootIssue(userDTO.Guid);
+            this._issueService.AddRootIssue(userDTO.Guid);
 
             return user;
         }
 
         public UserDTO Login(string token)
         {
-            return _userRepository.AddUser(new UserModel());
+            return this._userRepository.AddUser(new UserModel());
         }
 
         public UserDTO RetrieveByEmail(string email)
         {
-            throw new NotImplementedException();
+            return this._userRepository.RetrieveByEmail(email);
         }
     }
 }

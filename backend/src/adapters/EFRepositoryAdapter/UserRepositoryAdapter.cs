@@ -1,5 +1,9 @@
 ﻿using DataTransferObjects;
 
+using EFRepositoryAdapter.DataModel;
+using EFRepositoryAdapter.DataModel.Model;
+using EFRepositoryAdapter.DTOTransformers;
+
 using Ports.User;
 
 namespace EFRepositoryAdapter
@@ -15,21 +19,39 @@ namespace EFRepositoryAdapter
 
         public UserDTO AddUser(UserDTO user)
         {
-            return new UserRepoModel();
+            using (EFDBContext db = this._repositoryFactory.CreateContext())
+            {
+                db.UserSet.Add(user.ToModel());
+            }
+
+            return user;
         }
 
         public UserDTO UpdateUser(UserDTO user)
         {
-            return new UserRepoModel();
+            using (EFDBContext db = this._repositoryFactory.CreateContext())
+            {
+                UserModel originalUser = db.UserSet.Single(s => s.Guid == user.Guid);
+
+                originalUser.Name = user.Name;
+                originalUser.FullName = user.FullName;
+                originalUser.Email = user.Email;
+                originalUser.Picture = user.Picture;
+                originalUser.Sub = user.Sub;
+
+                db.SaveChanges();
+
+                return originalUser.ToDTO();
+            }
         }
 
         public UserDTO RetrieveByEmail(string email)
         {
-            return new UserRepoModel();
+            using (var db = this._repositoryFactory.CreateContext())
+            {
+                return db.UserSet.Single(s => s.Email == email)?.ToDTO();
+            }
         }
     }
 
-    internal class UserRepoModel : UserDTO
-    {
-    }
 }

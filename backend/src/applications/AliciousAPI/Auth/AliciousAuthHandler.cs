@@ -23,13 +23,15 @@ namespace AliciousUIAPI.Auth
 {
     public class AliciousAuthHandler : AuthenticationHandler<AliciousAuthSchemeOptions>
     {
+        private IUserService UserService;
         public AliciousAuthHandler(IOptionsMonitor<AliciousAuthSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock)
+            ISystemClock clock,
+            IUserService userService)
             : base(options, logger, encoder, clock)
         {
-
+            this.UserService = userService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -45,14 +47,11 @@ namespace AliciousUIAPI.Auth
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(GToken);
 
-            //IUserService UserService = new UserService(new UserRepositoryAdapter(), new IssueService(new IssueRepositoryAdapter()));
-
-            //UserDTO user = UserService.RetrieveByEmail(payload.Email);
-            UserDTO user = null;
+            UserDTO user = this.UserService.RetrieveByEmail(payload.Email);
 
             if (user == null)
             {
-                //user = UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
+                user = this.UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
             }
 
             var claims = new[] {
