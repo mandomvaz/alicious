@@ -21,10 +21,10 @@ namespace EFRepositoryAdapter
         {
             using (EFDBContext db = this._repositoryFactory.CreateContext())
             {
-                db.UserSet.Add(user.ToModel());
+                var ret = db.UserSet.Add(user.ToModel()).Entity.ToDTO();
+                db.SaveChanges();
+                return ret;
             }
-
-            return user;
         }
 
         public UserDTO UpdateUser(UserDTO user)

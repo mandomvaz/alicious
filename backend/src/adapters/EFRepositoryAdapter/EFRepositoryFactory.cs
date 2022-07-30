@@ -15,7 +15,7 @@ namespace EFRepositoryAdapter
 {
     public class EFRepositoryFactory
     {
-        private readonly EFContextFactory factory;
+        public readonly EFContextFactory factory;
 
         internal EFRepositoryFactory()
         {

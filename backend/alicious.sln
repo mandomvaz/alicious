@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFRepositoryAdapter", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AliciousAPI", "src\applications\AliciousAPI\AliciousAPI.csproj", "{9D8C5754-0437-4DB3-89EC-AB63B556F76A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{06612AA4-6206-487E-B3D6-7FA2271D60FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserTest", "test\UserTest\UserTest.csproj", "{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{9D8C5754-0437-4DB3-89EC-AB63B556F76A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D8C5754-0437-4DB3-89EC-AB63B556F76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D8C5754-0437-4DB3-89EC-AB63B556F76A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +85,7 @@ Global
 		{2FC6B9EF-0723-41BE-8023-A3142603E547} = {AACE7915-DF37-48B5-B922-BCDFF053230F}
 		{3E1B1C81-0629-4F2B-B47D-C9DF2D5CC44D} = {2FC6B9EF-0723-41BE-8023-A3142603E547}
 		{9D8C5754-0437-4DB3-89EC-AB63B556F76A} = {AE73B282-D4EA-40B9-8DA3-40D2181290D7}
+		{90EC12EC-B6B1-4F7E-8DC5-7E0EF2636C70} = {06612AA4-6206-487E-B3D6-7FA2271D60FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8EA8F069-90F7-4469-9F90-ED45BF21F79C}
