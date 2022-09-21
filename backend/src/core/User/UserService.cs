@@ -37,11 +37,6 @@ namespace User
             return user;
         }
 
-        public UserDTO Login(string token)
-        {
-            return this._userRepository.AddUser(new UserModel());
-        }
-
         public UserDTO RetrieveByEmail(string email)
         {
             return this._userRepository.RetrieveByEmail(email);

@@ -104,7 +104,7 @@ namespace EFRepositoryAdapter
         {
             using (EFDBContext db = _repositoryFactory.CreateContext())
             {
-                var list = db.IssueListSet.Single(w => w.IssueGuid == listGuid);
+                var list = db.IssueListSet.Single(w => w.Guid == listGuid);
                 db.IssueListSet.Remove(list);
                 db.SaveChanges();
             }
@@ -115,7 +115,7 @@ namespace EFRepositoryAdapter
             var list = listDTO.ToModel();
             using (EFDBContext db = _repositoryFactory.CreateContext())
             {
-                var targetList = db.IssueListSet.Single(w => w.IssueGuid == list.Guid);
+                var targetList = db.IssueListSet.Single(w => w.Guid == list.Guid);
                 
                 targetList.Title = list.Title;
                 targetList.Issues = list.Issues;

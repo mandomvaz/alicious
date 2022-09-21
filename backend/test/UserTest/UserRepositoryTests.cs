@@ -14,15 +14,20 @@ using Ports.User;
 
 namespace UserTest
 {
+    
     internal class UserRepositoryTests
     {
-        [Test]
+        private IIssueService issueService { get; set; }
+        private EFRepositoryFactory repoFactory { get; set; }
+
+        [OneTimeSetUp]
+        public void SetUpAssets()
+        {
+            this.issueService = new IIssueServiceMock();
+            this.repoFactory = EFRepositoryFactory.InstanceForTest("UserServiceTests");
+        }
         public void AddUser()
         {
-            IIssueService issueService = new IIssueServiceMock();
-
-            EFRepositoryFactory repoFactory = EFRepositoryFactory.InstanceForTest("UserServiceTests");
-
             IUserRepository userRepo = repoFactory.CreateIUserRepository();
 
             string name = "Lolo";

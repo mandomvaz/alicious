@@ -10,18 +10,16 @@ namespace Issue.model
 {
     internal class IssueList : IssueListDTO
     {
-        public Guid Guid { get; set; }
-        public string Title { get; set; }
-        public List<IssueListItem> Issues { get; set; }
-        public int Order { get; set; }
-
+        public List<IssueListItem> _Issues { get; set; }
         public IssueList() { }
 
         public IssueList(IssueListDTO list)
         {
             Guid = list.Guid;
+            IssueGuid = list.IssueGuid;
             Title = list.Title;
-            Issues = list.Issues.Select(s => new IssueListItem(s)).ToList();
+            Issues = list.Issues.Select(s => new IssueListItem(s)).Cast<IssueListItemDTO>().ToList();
+            Order = list.Order;
         }
 
         public void InsertItem(Guid issueGuid, int order)
@@ -38,7 +36,7 @@ namespace Issue.model
 
         public void RemoveItem(Guid issueGuid)
         {
-            IssueListItem itemToRemove = Issues.Single(s => s.IssueGuid == issueGuid);
+            IssueListItem itemToRemove = Issues.Cast<IssueListItem>().Single(s => s.IssueGuid == issueGuid);
             
             Issues.Remove(itemToRemove);
             Issues.ForEach(item => { item.Order = (item.Order >= itemToRemove.Order) ? item.Order - 1 : item.Order; });
@@ -48,9 +46,6 @@ namespace Issue.model
 
     internal class IssueListItem : IssueListItemDTO
     {
-        public Guid IssueGuid { get; set; }
-        public int Order { get; set; }
-
         public IssueListItem() { }
         public IssueListItem(IssueListItemDTO item)
         {

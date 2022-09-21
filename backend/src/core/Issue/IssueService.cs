@@ -18,7 +18,7 @@ public class IssueService : IIssueService
     {
         IssueModel issue = new IssueModel()
         {
-            Guid = new Guid(),
+            Guid = Guid.NewGuid(),
             Childs = new List<Guid>(),
             Description = "Root Issue",
             FatherGuid = Guid.Empty,
@@ -57,7 +57,7 @@ public class IssueService : IIssueService
     {
         IssueModel issue = new IssueModel()
         {
-            Guid = new Guid(),
+            Guid = Guid.NewGuid(),
             FatherGuid = fatherGuid,
             OwnerGuid = userGuid,
             Title = title,
@@ -71,8 +71,8 @@ public class IssueService : IIssueService
         IssueModel father = new IssueModel(_issueRepository.RetrieveByGuid(fatherGuid));
         father.Childs.Add(issue.Guid);
         this.UpdateIssue(father);
-
-        var list = new IssueList(this._issueRepository.GetAllIssueLists(father.Guid).Single(s => s.Guid == listGuid));
+        var prelist = this._issueRepository.GetAllIssueLists(father.Guid).Single(s => s.Guid == listGuid);
+        var list = new IssueList(prelist);
         list.InsertItem(issue.Guid, list.Issues.Count);
         this._issueRepository.UpdateList(list);
 
@@ -113,11 +113,11 @@ public class IssueService : IIssueService
 
         IssueList newlist = new IssueList()
         {
-            Guid = new Guid(),
+            Guid = Guid.NewGuid(),
             IssueGuid = issueGuid,
             Title = title,
-            Order = issueLists.Max(m => m.Order) + 1,
-            Issues = new List<IssueListItem>(),
+            Order = (issueLists.Any())? issueLists.Max(m => m.Order) + 1 : 1,
+            Issues = new List<IssueListItemDTO>(),
         };
 
         this._issueRepository.AddIssueList(newlist);
@@ -127,7 +127,7 @@ public class IssueService : IIssueService
 
     public bool RemoveList(Guid issueGuid, Guid listGuid)
     {
-        List<IssueListDTO> issueLists = this._issueRepository.GetAllIssueLists(listGuid);
+        List<IssueListDTO> issueLists = this._issueRepository.GetAllIssueLists(issueGuid);
         IssueListDTO targetIssuelist = issueLists.Single(s => s.Guid == listGuid);
 
         targetIssuelist.Issues.ForEach(issue => { this.RemoveIssue(issue.IssueGuid); });
@@ -151,7 +151,8 @@ public class IssueService : IIssueService
 
     public bool MoveItemFromToList(Guid issueGuid, int neworder, Guid fromList, Guid toList)
     {
-        List<IssueList> lists = this._issueRepository.GetAllIssueLists(issueGuid).Select(s => new IssueList(s)).ToList();
+        Guid fatherGuid = this._issueRepository.RetrieveByGuid(issueGuid).FatherGuid;
+        List<IssueList> lists = this._issueRepository.GetAllIssueLists(fatherGuid).Select(s => new IssueList(s)).ToList();
 
         IssueList from = lists.Single(s => s.Guid == fromList);
         from.RemoveItem(issueGuid);
@@ -183,13 +184,25 @@ public class IssueService : IIssueService
         List<IssueList> listsBelow = lists.Where(l => l.Order < target.Order).OrderBy(o => o.Order).ToList();
         List<IssueList> listsAbove = lists.Where(l => l.Order > target.Order).OrderBy(o => o.Order).ToList();
 
-        target.Order += forward ? 1 : -1;
+        List<IssueList> resultList = new List<IssueList>();
 
-        listsBelow.Add(target);
-        listsBelow.AddRange(listsAbove);
+        if (forward)
+        {
+            resultList.AddRange(listsBelow);
+            resultList.Add(listsAbove.First());
+            resultList.Add(target);
+            resultList.AddRange(listsAbove.Skip(1));
+        }
+        else
+        {
+            resultList.AddRange(listsBelow.Take(listsBelow.Count - 1));
+            resultList.Add(target);
+            resultList.Add(listsBelow.Last());
+            resultList.AddRange(listsAbove);
+        }
 
         int order = 0;
-        listsBelow.ForEach(l =>
+        resultList.ForEach(l =>
         {
             l.Order = order;
             order++;

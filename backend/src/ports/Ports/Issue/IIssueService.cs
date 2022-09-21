@@ -17,7 +17,7 @@ namespace Ports.Issue
         public IssueDTO AddIssue(string title, string description, Guid userGuid, Guid fatherGuid, Guid listGuid);
         public IssueDTO UpdateIssue(IssueDTO issue);
         public bool RemoveIssue(Guid issueGuid);
-
+        public bool MoveList(Guid issueGuid, Guid listGuid, bool forward);
         public IssueListDTO AddList(Guid issueGuid, string title);
         public bool RemoveList(Guid issueGuid, Guid listGuid);
         public bool MoveItemFromToList(Guid issueGuid, int neworder, Guid fromList, Guid toList);
