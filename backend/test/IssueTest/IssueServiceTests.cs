@@ -19,7 +19,6 @@ namespace IssueTest
         private List<IssueDTO> _IssuesDummyUser;
         private List<IssueListDTO> _RootIssueDummyUserLists;
 
-
         [OneTimeSetUp]
         public void Setup()
         {
@@ -236,12 +235,6 @@ namespace IssueTest
             Assert.IsTrue(toList.Issues.Contains(_RootIssueDummyUserLists[1].Issues[1].IssueGuid.ToString()));
         }
 
-        //[Test]
-        //public void MoveItemToTrashList()
-        //{
-        //    var serviceResult = _issueService.MoveItemto
-        //}
-
         [Test]
         public void MoveListForward()
         {
@@ -257,6 +250,7 @@ namespace IssueTest
             Assert.AreEqual(preLists[1].Guid, postLists[0].Guid);
             Assert.AreEqual(preLists[2].Guid, postLists[2].Guid);
         }
+
         [Test]
         public void MoveListBackward()
         {
