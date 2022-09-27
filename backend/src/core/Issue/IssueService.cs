@@ -107,6 +107,13 @@ public class IssueService : IIssueService
         return true;
     }
 
+    public List<IssueListDTO> RetrieveListsByIssueGuid(Guid issueGuid)
+    {
+        List<IssueListDTO> lists = this._issueRepository.GetAllIssueLists(issueGuid);
+
+        return lists;
+    }
+
     public IssueListDTO AddList(Guid issueGuid, string title)
     {
         List<IssueListDTO> issueLists = this._issueRepository.GetAllIssueLists(issueGuid);

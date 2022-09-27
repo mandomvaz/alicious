@@ -49,7 +49,7 @@ namespace EFRepositoryAdapter
         {
             using (var db = this._repositoryFactory.CreateContext())
             {
-                return db.UserSet.Single(s => s.Email == email)?.ToDTO();
+                return db.UserSet.SingleOrDefault(s => s.Email == email)?.ToDTO();
             }
         }
     }

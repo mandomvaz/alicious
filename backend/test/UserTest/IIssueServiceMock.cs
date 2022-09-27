@@ -68,5 +68,14 @@ namespace UserTest
             throw new NotImplementedException();
         }
 
+        public bool MoveList(Guid issueGuid, Guid listGuid, bool forward)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IssueListDTO> RetrieveListsByIssueGuid(Guid issueGuid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

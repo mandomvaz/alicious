@@ -99,7 +99,15 @@ namespace IssueTest
         [Test]
         public void PopulateIssueChilds()
         {
+            var serviceResult = _issueService.PopulateIssueChilds(_RootIssueDummyUser.Childs);
 
+            Assert.NotNull(serviceResult);
+            _IssuesDummyUser.ForEach(di =>
+            {
+                var issue = serviceResult.SingleOrDefault(i => i.Guid == di.Guid);
+                Assert.IsTrue( issue != null);
+                Assert.AreEqual(issue.Title, di.Title);
+            });
         }
 
         [Test]
@@ -199,6 +207,13 @@ namespace IssueTest
             var postList = db.IssueListSet.SingleOrDefault(l => l.Title == title);
             Assert.NotNull(postList);
             Assert.AreNotEqual(Guid.Empty, postList.Guid);
+        }
+        [Test]
+        public void RetrieveListsByIssueGuid()
+        {
+            var serviceResult = _issueService.RetrieveListsByIssueGuid(_RootIssueDummyUser.Guid);
+
+            Assert.GreaterOrEqual(3, serviceResult.Count);
         }
 
         [Test]

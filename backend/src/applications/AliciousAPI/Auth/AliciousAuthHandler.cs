@@ -36,28 +36,29 @@ namespace AliciousUIAPI.Auth
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            if (!Request.Headers.ContainsKey(HeaderNames.Authorization))
-            {
-                return AuthenticateResult.Fail("Header Not Found.");
-            }
+            //if (!Request.Headers.ContainsKey(HeaderNames.Authorization))
+            //{
+            //    return AuthenticateResult.Fail("Header Not Found.");
+            //}
 
             var header = Request.Headers[HeaderNames.Authorization].ToString();
 
             var GToken = header;
 
-            var payload = await GoogleJsonWebSignature.ValidateAsync(GToken);
+            var payload = "mandomvaz@gmail.com";// await GoogleJsonWebSignature.ValidateAsync(GToken);
 
-            UserDTO user = this.UserService.RetrieveByEmail(payload.Email);
+            UserDTO user = this.UserService.RetrieveByEmail(payload);
 
             if (user == null)
             {
-                user = this.UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
+                //user = this.UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
+                user = this.UserService.AddUser("Lolo lolo", "Lolo", payload, "", "");
             }
 
             var claims = new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.Guid.ToString()),
-                    new Claim(ClaimTypes.Email, payload.Email),
-                    new Claim(ClaimTypes.Name, payload.GivenName),
+                    new Claim(ClaimTypes.Email, payload),
+                    new Claim(ClaimTypes.Name, payload),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims,
