@@ -15,7 +15,8 @@ namespace AliciousAPI
         {
             builder.Services.AddSingleton<EFRepositoryFactory>(sp =>
             {
-                return EFRepositoryFactory.InstanceForTest("TestMinimalAPI");
+                //return EFRepositoryFactory.InstanceForTest("TestMinimalAPI");
+                return EFRepositoryFactory.Instance();
             });
 
             builder.Services.AddScoped<IIssueRepository>(sp =>

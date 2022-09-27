@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using EFRepositoryAdapter.DataModel;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace EFRepositoryAdapter
 {
@@ -17,7 +19,11 @@ namespace EFRepositoryAdapter
         {
             var optionsBuilder = new DbContextOptionsBuilder<EFDBContext>();
 
-            string connectionstring = "Server=localhost;Database=alicious;Uid=root;Pwd=9638;";
+            IConfiguration iconfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+
+            string connectionstring = iconfig["connectionstring"];//"Server=localhost;Database=alicious;Uid=root;Pwd=9638;";
             optionsBuilder.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring));
 
             this.options = optionsBuilder.Options;
