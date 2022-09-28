@@ -22,7 +22,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
-
+builder.Host.UseSystemd();
+builder.WebHost.UseUrls("http://localhost:3045");
 builder.Services.AddAuthentication(
     options => options.DefaultScheme = "AliciousAuthScheme")
     .AddScheme<AliciousAuthSchemeOptions, AliciousAuthHandler>(
