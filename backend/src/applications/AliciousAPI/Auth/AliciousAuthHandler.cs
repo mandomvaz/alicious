@@ -45,20 +45,20 @@ namespace AliciousUIAPI.Auth
 
             var GToken = header;
 
-            var payload = "mandomvaz@gmail.com";// await GoogleJsonWebSignature.ValidateAsync(GToken);
+            var payload = await GoogleJsonWebSignature.ValidateAsync(GToken);
 
-            UserDTO user = this.UserService.RetrieveByEmail(payload);
+            UserDTO user = this.UserService.RetrieveByEmail(payload.Email);
 
             if (user == null)
             {
-                //user = this.UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
-                user = this.UserService.AddUser("Lolo lolo", "Lolo", payload, "", "");
+                user = this.UserService.AddUser(payload.GivenName, payload.Name, payload.Email, payload.Picture, payload.Subject);
+                //user = this.UserService.AddUser("Lolo lolo", "Lolo", payload, "", "");
             }
 
             var claims = new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.Guid.ToString()),
-                    new Claim(ClaimTypes.Email, payload),
-                    new Claim(ClaimTypes.Name, payload),
+                    new Claim(ClaimTypes.Email, payload.Email),
+                    new Claim(ClaimTypes.Name, payload.GivenName),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims,
