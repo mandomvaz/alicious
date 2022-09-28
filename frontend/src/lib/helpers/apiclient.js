@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseconfig = {
-  baseURL: 'http://localhost/api',
+  baseURL: '/alicious/api/',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
