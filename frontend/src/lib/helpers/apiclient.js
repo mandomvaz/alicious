@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+const googleToken = localStorage.getItem('GOOGLETOKEN');
 const baseconfig = {
   baseURL: '/alicious/api/',
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    ContentType: 'application/json',
+    'Authorization': `${googleToken}`
   },
 };
 
