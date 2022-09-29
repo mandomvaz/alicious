@@ -109,3 +109,4 @@ dist
 /backend/src/core/User/GlobalSuppressions.cs
 /.vs
 /backend/src/adapters/EFRepositoryAdapter/appsettings.json
+/backend/src/applications/AliciousAPI/appsettings.json
