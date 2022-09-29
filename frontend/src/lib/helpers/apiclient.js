@@ -17,7 +17,7 @@ instanceAuth.interceptors.request.use((config) => {
   const retconfig = { ...config };
 
   const apitoken = localStorage.getItem('APIToken');
-  retconfig.headers.Authorization = `Bearer ${apitoken}`;
+  retconfig.headers.Authorization = `${apitoken}`;
 
   return retconfig;
 });
